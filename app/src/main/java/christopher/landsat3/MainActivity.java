@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.tutorial_menu) {
-            Intent intent = new Intent(MainActivity.this, Bookmarks.class);
+            Intent intent = new Intent(MainActivity.this, Tutorial.class);
             startActivity(intent);
             return true;
         } else if (id == R.id.imgs_saved) {

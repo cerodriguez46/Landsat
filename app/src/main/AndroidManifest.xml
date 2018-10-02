@@ -43,13 +43,19 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
+
         <activity
             android:name=".DetailActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".Bookmarks" />
+
+        <activity
+            android:name=".Bookmarks"
+            android:label="@string/title_activity_saved_imgs" />
+
         <activity
             android:name=".Tutorial"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity"
+            android:label="@string/title_activity_tutorial"></activity>
     </application>
 
 </manifest>
