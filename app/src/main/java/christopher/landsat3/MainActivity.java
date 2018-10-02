@@ -1,18 +1,20 @@
 package christopher.landsat3;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import christopher.landsat3.Networking.LandsatModel;
 import christopher.landsat3.Networking.RetrofitClient;
 import christopher.landsat3.Networking.RetrofitInterface;
@@ -23,7 +25,10 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private List<LandsatModel> satelliteList;
-    TextView tvexample;
+
+    @BindView(R.id.fabSatelliteImage)
+    FloatingActionButton satFab;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +37,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        tvexample = (TextView) findViewById(R.id.textView);
+        ButterKnife.bind(this);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         parseJson();
     }
@@ -58,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 String sat = response.body();
-                Toast.makeText(getApplicationContext(), "It work! :(", Toast.LENGTH_LONG).show();
-                tvexample.setText(sat);
+                Toast.makeText(getApplicationContext(), sat, Toast.LENGTH_LONG).show();
+
 
             }
 
@@ -70,6 +68,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
+    @OnClick(R.id.fabSatelliteImage)
+    public void obtainSatelliteImage(View v) {
+        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+        startActivity(intent);
+
+    }
+
 
 
     @Override
@@ -87,7 +94,13 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.tutorial_menu) {
+            Intent intent = new Intent(MainActivity.this, Bookmarks.class);
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.imgs_saved) {
+            Intent intent = new Intent(MainActivity.this, Bookmarks.class);
+            startActivity(intent);
             return true;
         }
 
