@@ -104,6 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
+            android:id="@+id/tv_lat"
             android:textStyle="bold"
             android:textSize="15dp"
             android:text="245.54891"></TextView>

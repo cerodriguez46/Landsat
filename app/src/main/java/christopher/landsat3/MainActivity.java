@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -29,6 +31,14 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.fabSatelliteImage)
     FloatingActionButton satFab;
 
+    @BindView(R.id.searchInput)
+    EditText searchUserInput;
+
+    @BindView(R.id.tv_lat)
+    TextView latitude;
+
+    String textFromEditText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-
+        textFromEditText = searchUserInput.getText().toString();
+        latitude.setText(textFromEditText);
 
         parseJson();
     }
