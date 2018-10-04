@@ -50,15 +50,66 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="12dp">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="8dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:background="@color/colorAccent" />
+                    android:orientation="vertical"
+                    android:background="@color/colorAccent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="December 29, 2010"
+                        android:layout_gravity="center_horizontal"
+                        android:textAlignment="center" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/latlonglayout"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="December 29, 2010"
+                            android:layout_gravity="start"
+                            android:textAlignment="viewStart" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="october 29, 2010"
+                            android:layout_gravity="end"
+                            android:textAlignment="viewEnd" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_gravity="bottom">
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="2dp" />
+
+                </LinearLayout>
+
+
             </android.support.v7.widget.CardView>
         </LinearLayout>
+
+
     </ScrollView>
 </RelativeLayout>
