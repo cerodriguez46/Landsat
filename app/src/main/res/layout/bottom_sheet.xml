@@ -22,8 +22,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginRight="36dp"
         android:layout_marginLeft="36dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/colorAccent"></View>
+        android:layout_marginBottom="2dp"
+        android:background="@color/colorAccentGrey"></View>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,12 +33,14 @@
         android:weightSum="3"
         android:padding="4dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/dates"
             android:layout_gravity="start"
-            android:layout_marginLeft="8dp" />
+            android:layout_marginLeft="8dp"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/colorAccentGrey" />
 
 
         <TextView
@@ -67,11 +69,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:layout_marginRight="36dp"
         android:layout_marginLeft="36dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/colorAccent"></View>
+        android:layout_marginBottom="2dp"
+        android:background="@color/colorAccentGrey"></View>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -81,12 +83,14 @@
         android:weightSum="3"
         android:padding="4dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/terrain"
+            android:layout_gravity="start"
             android:layout_marginLeft="8dp"
-            android:layout_gravity="start" />
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/colorAccentGrey" />
 
 
         <TextView
@@ -116,11 +120,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:layout_marginRight="36dp"
         android:layout_marginLeft="36dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/colorAccent"></View>
+        android:layout_marginBottom="2dp"
+        android:background="@color/colorAccentGrey"></View>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -130,12 +134,14 @@
         android:weightSum="3"
         android:padding="4dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/map"
+            android:layout_gravity="start"
             android:layout_marginLeft="8dp"
-            android:layout_gravity="start" />
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/colorAccentGrey" />
 
 
         <TextView
@@ -163,11 +169,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:layout_marginRight="36dp"
         android:layout_marginLeft="36dp"
         android:layout_marginBottom="16dp"
-        android:background="@color/colorAccent"></View>
+        android:background="@color/colorAccentGrey"></View>
 
 
 </LinearLayout>

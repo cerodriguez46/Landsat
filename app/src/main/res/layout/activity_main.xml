@@ -36,8 +36,8 @@
         android:layout_height="75dp"
         android:layout_marginRight="16dp"
         android:id="@+id/fabSatelliteImage"
-        android:src="@drawable/ic_satellite"
-        app:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/getsatimage"
+
         app:layout_anchor="@+id/bottom_sheet"
         android:elevation="8dp"
         app:layout_anchorGravity="top|end"
