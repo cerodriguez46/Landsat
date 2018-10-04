@@ -2,13 +2,16 @@ package christopher.landsat3;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,10 +46,27 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @BindView(R.id.searchInput)
     EditText searchUserInput;
 
+    @BindView(R.id.userEnter)
+    Button userInputButton;
+
     @BindView(R.id.tv_lat)
     TextView latitude;
 
-    String textFromEditText;
+    @BindView(R.id.day)
+    TextView date;
+
+    @BindView(R.id.lng)
+    TextView longitude;
+
+    @BindView(R.id.bottom_sheet)
+    LinearLayout bottomSheetLayout;
+
+
+    String textFromLatEditText;
+    String textFromLongEditText;
+    String textFromDateEditText;
+
+    BottomSheetBehavior sheetBehavior;
 
 
     @Override
@@ -63,8 +83,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         ButterKnife.bind(this);
 
-        textFromEditText = searchUserInput.getText().toString();
-        latitude.setText(textFromEditText);
+
+        sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
+
+        userInputButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateBottomSheetContents();
+            }
+        });
+
+
 
         parseJson();
     }
@@ -135,10 +164,33 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        float zoomLevel = 9.0f;
 
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, zoomLevel));
+
+        mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
     }
+
+    public void updateBottomSheetContents() {
+
+        if (searchUserInput != null) {
+            textFromDateEditText = searchUserInput.getText().toString();
+            date.setText(textFromDateEditText);
+
+            textFromLatEditText = searchUserInput.getText().toString();
+            latitude.setText(textFromLatEditText);
+
+            textFromLongEditText = searchUserInput.getText().toString();
+            longitude.setText(textFromLongEditText);
+        } else {
+            date.setText("N/A");
+            latitude.setText("N/A");
+            longitude.setText("N/A");
+        }
+
+    }
+
 }

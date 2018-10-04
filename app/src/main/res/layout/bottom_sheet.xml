@@ -12,7 +12,7 @@
     android:layout_marginRight="8dp"
     android:elevation="4dp"
 
-    app:behavior_hideable="true"
+    app:behavior_hideable="false"
     app:behavior_peekHeight="56dp"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
@@ -37,8 +37,8 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@mipmap/ic_launcher"
-            android:layout_marginLeft="8dp"
-            android:layout_gravity="start" />
+            android:layout_gravity="start"
+            android:layout_marginLeft="8dp" />
 
 
         <TextView
@@ -59,7 +59,8 @@
             android:layout_weight="1"
             android:textStyle="bold"
             android:textSize="15dp"
-            android:text="September 27, 2007"></TextView>
+            android:id="@+id/day"
+            android:text="N/A"></TextView>
     </LinearLayout>
 
 
@@ -107,7 +108,7 @@
             android:id="@+id/tv_lat"
             android:textStyle="bold"
             android:textSize="15dp"
-            android:text="245.54891"></TextView>
+            android:text="N/A"></TextView>
 
 
     </LinearLayout>
@@ -155,7 +156,8 @@
             android:layout_weight="1"
             android:textStyle="bold"
             android:textSize="15dp"
-            android:text="1765.1254"></TextView>
+            android:id="@+id/lng"
+            android:text="N/A"></TextView>
     </LinearLayout>
 
     <View
