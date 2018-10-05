@@ -1,11 +1,14 @@
 package christopher.landsat3;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +25,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -55,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @BindView(R.id.day)
     TextView date;
 
-    @BindView(R.id.lng)
+    @BindView(R.id.tv_lng)
     TextView longitude;
 
     @BindView(R.id.bottom_sheet)
@@ -66,7 +71,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     String textFromLongEditText;
     String textFromDateEditText;
 
+    Double latReturn;
+    Double longReturn;
+
+    String latCoord;
+    String longCoord;
+
     BottomSheetBehavior sheetBehavior;
+
+    DecimalFormat latlngFormatted = new DecimalFormat("###,###.##");
+
+    LandsatModel model;
+
+    static final String TAG = "101";
 
 
     @Override
@@ -89,6 +106,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         userInputButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                onMapSearch(view);
                 updateBottomSheetContents();
             }
         });
@@ -100,23 +119,25 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void parseJson() {
 
+
         RetrofitClient client = new RetrofitClient();
 
-        RetrofitInterface apiService = client.getClient().create(RetrofitInterface.class);
+        final RetrofitInterface apiService = client.getClient().create(RetrofitInterface.class);
 
-        Call<String> call = apiService.geLandsatData(BuildConfig.NASA_API);
+        Call<LandsatModel> call = apiService.geLandsatData(BuildConfig.NASA_API);
 
-        call.enqueue(new Callback<String>() {
+        call.enqueue(new Callback<LandsatModel>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                String sat = response.body();
-                Toast.makeText(getApplicationContext(), sat, Toast.LENGTH_LONG).show();
+            public void onResponse(Call<LandsatModel> call, Response<LandsatModel> response) {
 
+                model = response.body();
+                Toast.makeText(getApplicationContext(), String.valueOf(response), Toast.LENGTH_LONG).show();
+                Log.v(TAG, String.valueOf(response));
 
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<LandsatModel> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "It didn't work! :(", Toast.LENGTH_LONG).show();
             }
         });
@@ -174,21 +195,46 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
     }
 
+    public void onMapSearch(View view) {
+
+        String location = searchUserInput.getText().toString();
+        List<Address> addressList = null;
+
+        if (location != null || !location.equals("")) {
+            Geocoder geocoder = new Geocoder(this);
+            try {
+                addressList = geocoder.getFromLocationName(location, 1);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Address address = addressList.get(0);
+            LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+            mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+            latReturn = address.getLatitude();
+            longReturn = address.getLongitude();
+
+
+            latCoord = String.valueOf(latlngFormatted.format(latReturn));
+            longCoord = String.valueOf(latlngFormatted.format(longReturn));
+
+
+        }
+    }
+
+
     public void updateBottomSheetContents() {
 
         if (searchUserInput != null) {
             textFromDateEditText = searchUserInput.getText().toString();
             date.setText(textFromDateEditText);
 
-            textFromLatEditText = searchUserInput.getText().toString();
-            latitude.setText(textFromLatEditText);
 
-            textFromLongEditText = searchUserInput.getText().toString();
-            longitude.setText(textFromLongEditText);
-        } else {
-            date.setText("N/A");
-            latitude.setText("N/A");
-            longitude.setText("N/A");
+            latitude.setText(latCoord);
+
+
+            longitude.setText(longCoord);
         }
 
     }

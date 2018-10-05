@@ -111,8 +111,7 @@
             android:layout_weight="1"
             android:id="@+id/tv_lat"
             android:textStyle="bold"
-            android:textSize="15dp"
-            android:text="N/A"></TextView>
+            android:textSize="15dp"></TextView>
 
 
     </LinearLayout>
@@ -162,8 +161,7 @@
             android:layout_weight="1"
             android:textStyle="bold"
             android:textSize="15dp"
-            android:id="@+id/lng"
-            android:text="N/A"></TextView>
+            android:id="@+id/tv_lng"></TextView>
     </LinearLayout>
 
     <View
