@@ -14,15 +14,22 @@ public class LandsatModel {
     @SerializedName("id")
     @Expose
     public String id;
+    @SerializedName("resource")
+    @Expose
+    public Resource resource;
+    @SerializedName("service_version")
+    @Expose
+    public String serviceVersion;
     @SerializedName("url")
     @Expose
     public String url;
 
-
-    public LandsatModel(double cloudScore, String date, String id, String url) {
+    public LandsatModel(double cloudScore, String date, String id, Resource resource, String serviceVersion, String url) {
         this.cloudScore = cloudScore;
         this.date = date;
         this.id = id;
+        this.resource = resource;
+        this.serviceVersion = serviceVersion;
         this.url = url;
     }
 
@@ -50,6 +57,22 @@ public class LandsatModel {
         this.id = id;
     }
 
+    public Resource getResource() {
+        return resource;
+    }
+
+    public void setResource(Resource resource) {
+        this.resource = resource;
+    }
+
+    public String getServiceVersion() {
+        return serviceVersion;
+    }
+
+    public void setServiceVersion(String serviceVersion) {
+        this.serviceVersion = serviceVersion;
+    }
+
     public String getUrl() {
         return url;
     }
@@ -58,3 +81,5 @@ public class LandsatModel {
         this.url = url;
     }
 }
+
+

@@ -85,6 +85,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     static final String TAG = "101";
 
+    String cloudScore = "true";
+    String satdate = "2014-02-01";
+    String exLat = "1.5";
+    String exLon = "100.75";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,12 +114,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 onMapSearch(view);
                 updateBottomSheetContents();
+                parseJson();
             }
         });
 
 
 
-        parseJson();
+
     }
 
     private void parseJson() {
@@ -124,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         final RetrofitInterface apiService = client.getClient().create(RetrofitInterface.class);
 
-        Call<LandsatModel> call = apiService.geLandsatData(BuildConfig.NASA_API);
+        Call<LandsatModel> call = apiService.geLandsatData(longCoord, latCoord, satdate, cloudScore, BuildConfig.NASA_API);
 
         call.enqueue(new Callback<LandsatModel>() {
             @Override
