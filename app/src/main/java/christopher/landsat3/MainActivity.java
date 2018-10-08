@@ -1,6 +1,9 @@
 package christopher.landsat3;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -13,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,6 +31,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -43,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private GoogleMap mMap;
 
-    private List<LandsatModel> satelliteList;
 
     @BindView(R.id.fabSatelliteImage)
     FloatingActionButton satFab;
@@ -63,12 +67,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @BindView(R.id.tv_lng)
     TextView longitude;
 
+    @BindView(R.id.buttonDate)
+    Button selectDateButton;
+
     @BindView(R.id.bottom_sheet)
     LinearLayout bottomSheetLayout;
 
-
-    String textFromLatEditText;
-    String textFromLongEditText;
     String textFromDateEditText;
 
     Double latReturn;
@@ -86,9 +90,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     static final String TAG = "101";
 
     String cloudScore = "true";
-    String satdate = "2014-02-01";
-    String exLat = "1.5";
-    String exLon = "100.75";
+
+    String selectedDate;
+
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
+
+    int calendarYear;
+    int calendarMonth;
+    int calendarDay;
 
 
     @Override
@@ -119,8 +128,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
 
 
-
-
     }
 
     private void parseJson() {
@@ -130,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         final RetrofitInterface apiService = client.getClient().create(RetrofitInterface.class);
 
-        Call<LandsatModel> call = apiService.geLandsatData(longCoord, latCoord, satdate, cloudScore, BuildConfig.NASA_API);
+        Call<LandsatModel> call = apiService.geLandsatData(longCoord, latCoord, selectedDate, cloudScore, BuildConfig.NASA_API);
 
         call.enqueue(new Callback<LandsatModel>() {
             @Override
@@ -154,10 +161,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @OnClick(R.id.fabSatelliteImage)
     public void obtainSatelliteImage(View v) {
         Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+        intent.putExtra("passedLong", longCoord);
+        intent.putExtra("passedLat", latCoord);
+        intent.putExtra("passedDate", selectedDate);
         startActivity(intent);
 
     }
-
 
 
     @Override
@@ -229,12 +238,53 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    public void openCalendar(View v) {
+        final Calendar calendar = Calendar.getInstance();
+
+        calendarYear = calendar.get(Calendar.YEAR);
+        calendarMonth = calendar.get(Calendar.MONTH);
+        calendarDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        final DatePickerDialog datePickerDialog = new DatePickerDialog(
+                MainActivity.this,
+                android.R.style.Theme_Holo_Light,
+                mDateSetListener,
+                calendarYear, calendarDay, calendarMonth);
+        datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
+        //datePickerDialog.getDatePicker().setMinDate();
+
+        datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
+
+        datePickerDialog.show();
+
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
+                if (month < 10) {
+
+                    month = Integer.parseInt("0" + month);
+                }
+                if (day < 10) {
+
+                    day = Integer.parseInt("0" + day);
+                }
+
+                selectedDate = year + "-" + month + "-" + day;
+                date.setText(selectedDate);
+            }
+        };
+
+
+    }
+
 
     public void updateBottomSheetContents() {
 
         if (searchUserInput != null) {
             textFromDateEditText = searchUserInput.getText().toString();
-            date.setText(textFromDateEditText);
 
 
             latitude.setText(latCoord);

@@ -7,24 +7,24 @@
     tools:showIn="@layout/activity_main">
 
     <LinearLayout
+        android:id="@+id/searchLinLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
         android:background="@android:color/white"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
         android:elevation="6dp"
-        android:id="@+id/searchLinLayout">
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="19dp">
 
         <ImageView
+            android:id="@+id/search_magnify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/search_magnify"
-            android:src="@drawable/ic_magnify"
-            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_magnify" />
 
         <EditText
             android:id="@+id/searchInput"
@@ -38,14 +38,27 @@
             android:textSize="15sp" />
 
         <Button
+            android:id="@+id/userEnter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Enter"
-            android:textColor="#ffffff"
+            android:layout_weight="2"
             android:background="@color/colorAccent"
-            android:id="@+id/userEnter"
-            android:layout_weight="2"></Button>
+            android:text="Enter"
+            android:textColor="#ffffff"></Button>
+
+        <Button
+            android:id="@+id/buttonDate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent"
+            android:text="Date"
+            android:layout_marginLeft="8dp"
+            android:textColor="#ffffff"
+            android:onClick="openCalendar"></Button>
+
+
     </LinearLayout>
+
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
