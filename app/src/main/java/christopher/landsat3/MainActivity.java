@@ -316,9 +316,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void openCalendar(View v) {
         final Calendar calendar = Calendar.getInstance();
 
+
         calendarYear = calendar.get(Calendar.YEAR);
         calendarMonth = calendar.get(Calendar.MONTH);
         calendarDay = calendar.get(Calendar.DAY_OF_MONTH);
+
 
         final DatePickerDialog datePickerDialog = new DatePickerDialog(
                 MainActivity.this,
@@ -335,31 +337,49 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         datePickerDialog.show();
 
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+
+            String updatedMonth;
+            String updatedYear;
+            String updatedDay;
+
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
+                /*Date d = new Date(year, month, day);
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+String date = sdf.format(d);
+System.out.println(date);*/
+
+
+                int monthOfYear = month + 1;
+                String formattedMonth = "" + monthOfYear;
+                String formattedDayOfMonth = "" + day;
+
                 if (month < 10) {
 
-                    month = Integer.parseInt("0" + month);
+                    formattedMonth = "0" + month;
                 }
                 if (day < 10) {
 
-                    day = Integer.parseInt("0" + day);
+                    formattedDayOfMonth = "0" + day;
+
+
+                    selectedDate = String.valueOf(year) + "-" + formattedMonth + "-" + formattedDayOfMonth;
+
+
+                    date.setText(selectedDate);
 
 
                 }
 
-                selectedDate = year + "-" + month + "-" + day;
-
-
-                date.setText(selectedDate);
-
-
             }
+
+
         };
-
-
     }
+
+
+
 
 
     public void updateBottomSheetContents() {
@@ -373,5 +393,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
     }
+
 
 
