@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @BindView(R.id.bottom_sheet)
     LinearLayout bottomSheetLayout;
 
-    String textFromDateEditText;
+    String textFromEditText;
 
     Double latReturn;
     Double longReturn;
@@ -108,8 +108,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     int calendarMonth;
     int calendarDay;
 
-    Double currentLatitude;
-    Double currentlongitude;
+
 
     private FusedLocationProviderClient mFusedLocationClient;
 
@@ -182,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         intent.putExtra("passedLong", longCoord);
         intent.putExtra("passedLat", latCoord);
         intent.putExtra("passedDate", selectedDate);
+        intent.putExtra("passedTitle", textFromEditText);
         startActivity(intent);
 
     }
@@ -337,9 +337,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void updateBottomSheetContents() {
 
-        textFromDateEditText = searchUserInput.getText().toString();
+        textFromEditText = searchUserInput.getText().toString();
 
-        if (textFromDateEditText == "") {
+        if (textFromEditText == "") {
 
             latitude.setText("N/A");
 
