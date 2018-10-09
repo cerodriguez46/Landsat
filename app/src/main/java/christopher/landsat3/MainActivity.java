@@ -15,6 +15,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -134,15 +135,23 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 
+
         sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
 
         userInputButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                onMapSearch(view);
-                updateBottomSheetContents();
-                parseJson();
+                if (TextUtils.isEmpty(textFromEditText = searchUserInput.getText().toString())) {
+                    Toast.makeText(MainActivity.this, "Please enter input", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    onMapSearch(view);
+                    updateBottomSheetContents();
+                    parseJson();
+                }
+
+
             }
         });
 
@@ -273,19 +282,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Address address = addressList.get(0);
-            LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
 
-            mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-            latReturn = address.getLatitude();
-            longReturn = address.getLongitude();
+            if (addressList != null && addressList.size() != 0) {
+                Address address = addressList.get(0);
+                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
 
-
-            latCoord = String.valueOf(latlngFormatted.format(latReturn));
-            longCoord = String.valueOf(latlngFormatted.format(longReturn));
+                mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                latReturn = address.getLatitude();
+                longReturn = address.getLongitude();
 
 
+                latCoord = String.valueOf(latlngFormatted.format(latReturn));
+                longCoord = String.valueOf(latlngFormatted.format(longReturn));
+
+            } else {
+
+                Toast.makeText(MainActivity.this, "location not found", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -339,22 +353,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void updateBottomSheetContents() {
 
-        textFromEditText = searchUserInput.getText().toString();
-
-        if (textFromEditText == "") {
-
-            latitude.setText("N/A");
-
-            longitude.setText("N/A");
-
-            Toast.makeText(MainActivity.this, "Please enter a place", Toast.LENGTH_SHORT).show();
-        } else {
-            latitude.setText(latCoord);
+        
+        latitude.setText(latCoord);
 
 
-            longitude.setText(longCoord);
+        longitude.setText(longCoord);
+
         }
 
     }
 
-}
+
