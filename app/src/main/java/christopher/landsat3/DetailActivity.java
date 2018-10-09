@@ -3,10 +3,12 @@ package christopher.landsat3;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import christopher.landsat3.Networking.LandsatModel;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -24,6 +26,12 @@ public class DetailActivity extends AppCompatActivity {
     @BindView(R.id.tv_detail_lat)
     TextView tvLat;
 
+    @BindView(R.id.imageView)
+    ImageView image;
+
+    LandsatModel model;
+
+    String urlImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,5 +53,11 @@ public class DetailActivity extends AppCompatActivity {
         tvDate.setText(detailDate);
         tvLon.setText("Lon: " + detailLong);
         tvLat.setText("Lat: " + detailLat);
+
+       /* urlImage = model.getUrl();
+
+        Glide.with(this)
+                .load(urlImage)
+                .into(image);*/
     }
 }

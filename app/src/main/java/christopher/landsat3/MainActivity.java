@@ -84,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @BindView(R.id.bottom_sheet)
     LinearLayout bottomSheetLayout;
 
+    @BindView(R.id.placeTitle)
+    TextView titleOfPlace;
+
     String textFromEditText;
 
     Double latReturn;
@@ -146,6 +149,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (TextUtils.isEmpty(textFromEditText = searchUserInput.getText().toString())) {
                     Toast.makeText(MainActivity.this, "Please enter a place", Toast.LENGTH_SHORT).show();
                 } else {
+                    titleOfPlace.setText(textFromEditText);
+
 
                     onMapSearch(view);
                     updateBottomSheetContents();
@@ -386,6 +391,41 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         longitude.setText(longCoord);
 
         }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String stateEditTextSaved = savedInstanceState.getString("saved_edit_text");
+        String stateTitleSaved = savedInstanceState.getString("saved_title_place");
+        String stateDateSaved = savedInstanceState.getString("saved_date");
+        String stateLongSaved = savedInstanceState.getString("saved_long");
+        String stateLatSaved = savedInstanceState.getString("saved_lat");
+
+        searchUserInput.setText(stateEditTextSaved);
+        titleOfPlace.setText(stateTitleSaved);
+        date.setText(stateDateSaved);
+        longitude.setText(stateLongSaved);
+        latitude.setText(stateLatSaved);
+
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String saveEditTextInput = searchUserInput.getText().toString();
+        String saveTitleText = titleOfPlace.getText().toString();
+        String saveDateText = date.getText().toString();
+        String saveLongText = longitude.getText().toString();
+        String saveLatText = latitude.getText().toString();
+
+        outState.putString("saved_edit_text", saveEditTextInput);
+        outState.putString("saved_title_place", saveTitleText);
+        outState.putString("saved_date", saveDateText);
+        outState.putString("saved_long", saveLongText);
+        outState.putString("saved_lat", saveLatText);
+       
+    }
 
     }
 

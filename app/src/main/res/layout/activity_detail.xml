@@ -28,8 +28,8 @@
                     android:id="@+id/imageView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/exampleimage"
-                    android:scaleType="centerCrop"
+
+
                     android:elevation="2dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
