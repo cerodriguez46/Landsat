@@ -424,7 +424,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         outState.putString("saved_date", saveDateText);
         outState.putString("saved_long", saveLongText);
         outState.putString("saved_lat", saveLatText);
-       
+
     }
 
     }
