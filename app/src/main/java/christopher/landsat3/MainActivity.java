@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View view) {
 
                 if (TextUtils.isEmpty(textFromEditText = searchUserInput.getText().toString())) {
-                    Toast.makeText(MainActivity.this, "Please enter input", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Please enter a place", Toast.LENGTH_SHORT).show();
                 } else {
 
                     onMapSearch(view);
@@ -188,13 +188,23 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @OnClick(R.id.fabSatelliteImage)
     public void obtainSatelliteImage(View v) {
-        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-        intent.putExtra("passedLong", longCoord);
-        intent.putExtra("passedLat", latCoord);
-        intent.putExtra("passedDate", selectedDate);
-        intent.putExtra("passedTitle", textFromEditText);
-        startActivity(intent);
 
+        if (TextUtils.isEmpty(textFromEditText = searchUserInput.getText().toString())) {
+            Toast.makeText(MainActivity.this, "Please enter a place", Toast.LENGTH_SHORT).show();
+        } else if (date.getText().equals("N/A")) {
+            Toast.makeText(MainActivity.this, "Please enter a date", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(textFromEditText = searchUserInput.getText().toString()) &&
+                date.getText().equals("N/A")) {
+            Toast.makeText(MainActivity.this, "Please enter a place and date", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+            intent.putExtra("passedLong", longCoord);
+            intent.putExtra("passedLat", latCoord);
+            intent.putExtra("passedDate", selectedDate);
+            intent.putExtra("passedTitle", textFromEditText);
+            startActivity(intent);
+
+        }
     }
 
 
@@ -341,6 +351,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 selectedDate = year + "-" + month + "-" + day;
 
+
                 date.setText(selectedDate);
 
 
@@ -353,7 +364,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void updateBottomSheetContents() {
 
-        
+
         latitude.setText(latCoord);
 
 
