@@ -120,6 +120,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        ButterKnife.bind(this);
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         requestPermission();
 
@@ -129,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        ButterKnife.bind(this);
+
 
 
         sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
@@ -161,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onResponse(Call<LandsatModel> call, Response<LandsatModel> response) {
 
                 model = response.body();
-                Toast.makeText(getApplicationContext(), String.valueOf(response), Toast.LENGTH_LONG).show();
+
                 Log.v(TAG, String.valueOf(response));
 
             }
@@ -345,7 +347,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             longitude.setText("N/A");
 
-
+            Toast.makeText(MainActivity.this, "Please enter a place", Toast.LENGTH_SHORT).show();
         } else {
             latitude.setText(latCoord);
 

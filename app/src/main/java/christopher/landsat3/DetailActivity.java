@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DetailActivity extends AppCompatActivity {
 
     String detailLong;
@@ -12,13 +15,13 @@ public class DetailActivity extends AppCompatActivity {
     String detailDate;
     String detailTitle;
 
-
+    @BindView(R.id.tv_detail_date)
     TextView tvDate;
 
-
+    @BindView(R.id.tv_detail_long)
     TextView tvLon;
 
-
+    @BindView(R.id.tv_detail_lat)
     TextView tvLat;
 
 
@@ -27,10 +30,8 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        ButterKnife.bind(this);
 
-        tvDate = (TextView) findViewById(R.id.tv_detail_date);
-        tvLon = (TextView) findViewById(R.id.tv_detail_long);
-        tvLat = (TextView) findViewById(R.id.tv_detail_lat);
 
         Intent intentFromMainActivity = getIntent();
 
@@ -42,7 +43,7 @@ public class DetailActivity extends AppCompatActivity {
         ((AppCompatActivity) this).getSupportActionBar().setTitle(detailTitle);
 
         tvDate.setText(detailDate);
-        tvLon.setText(detailLong);
-        tvLat.setText(detailLat);
+        tvLon.setText("Lon: " + detailLong);
+        tvLat.setText("Lat: " + detailLat);
     }
 }

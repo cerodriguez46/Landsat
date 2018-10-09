@@ -71,7 +71,7 @@
 
                             <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_gravity="center_horizontal"
                                 android:textAlignment="center"
                                 android:textSize="20dp"
@@ -90,23 +90,25 @@
 
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start"
                                 android:textSize="20dp"
                                 android:textAlignment="viewStart"
                                 android:id="@+id/tv_detail_long"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:layout_weight="1" />
 
                             <TextView
                                 android:id="@+id/tv_detail_lat"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="end"
                                 android:textSize="20dp"
                                 android:layout_marginLeft="30dp"
                                 android:textAlignment="viewEnd"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:layout_weight="1" />
 
 
                         </LinearLayout>
@@ -126,6 +128,7 @@
                                 android:layout_gravity="start"
                                 android:layout_marginLeft="8dp"
                                 app:civ_border_width="2dp"
+                                android:layout_weight="1"
                                 app:civ_border_color="@color/colorAccentGrey" />
 
 
@@ -136,6 +139,7 @@
                                 android:layout_gravity="start"
                                 android:layout_marginLeft="8dp"
                                 app:civ_border_width="2dp"
+                                android:layout_weight="1"
                                 app:civ_border_color="@color/colorAccentGrey" />
 
                             <de.hdodenhof.circleimageview.CircleImageView
@@ -145,6 +149,7 @@
                                 android:layout_gravity="start"
                                 android:layout_marginLeft="8dp"
                                 app:civ_border_width="2dp"
+                                android:layout_weight="1"
                                 app:civ_border_color="@color/colorAccentGrey" />
 
                         </LinearLayout>
