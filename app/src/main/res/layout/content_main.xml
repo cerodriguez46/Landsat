@@ -35,8 +35,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
-            android:hint="Enter address, place, or long/lat..."
-
+            android:hint="Enter a place..."
+            android:inputType="textAutoComplete"
             android:maxLines="1"
             android:textSize="15sp" />
 

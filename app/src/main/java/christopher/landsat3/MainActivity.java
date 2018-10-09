@@ -1,14 +1,18 @@
 package christopher.landsat3;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -22,12 +26,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -43,6 +50,8 @@ import christopher.landsat3.Networking.RetrofitInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -99,6 +108,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     int calendarMonth;
     int calendarDay;
 
+    Double currentLatitude;
+    Double currentlongitude;
+
+    private FusedLocationProviderClient mFusedLocationClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +120,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        requestPermission();
+
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -197,20 +215,48 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return super.onOptionsItemSelected(item);
     }
 
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        float zoomLevel = 4.0f;
 
-        // Add a marker in Sydney and move the camera
 
-        LatLng sydney = new LatLng(-34, 151);
-        
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, zoomLevel));
+        if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mFusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
 
-        mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                    float zoomLevel = 4.0f;
+
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            LatLng myPosition = new LatLng(location.getLatitude(), location.getLongitude());
+
+                            mMap.addMarker(new MarkerOptions().position(myPosition).title("Current Position"));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosition, zoomLevel));
+
+                            mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                        }
+                    }
+                });
+
+
     }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
+    }
+
 
     public void onMapSearch(View view) {
 
@@ -227,6 +273,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
             Address address = addressList.get(0);
             LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+
             mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
             mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
             latReturn = address.getLatitude();
