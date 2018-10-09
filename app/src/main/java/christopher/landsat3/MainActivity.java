@@ -200,10 +200,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        float zoomLevel = 9.0f;
+        float zoomLevel = 4.0f;
 
         // Add a marker in Sydney and move the camera
+
         LatLng sydney = new LatLng(-34, 151);
+        
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, zoomLevel));
 
@@ -270,10 +272,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (day < 10) {
 
                     day = Integer.parseInt("0" + day);
+
+
                 }
 
                 selectedDate = year + "-" + month + "-" + day;
+
                 date.setText(selectedDate);
+
+
             }
         };
 
@@ -283,10 +290,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void updateBottomSheetContents() {
 
-        if (searchUserInput != null) {
-            textFromDateEditText = searchUserInput.getText().toString();
+        textFromDateEditText = searchUserInput.getText().toString();
+
+        if (textFromDateEditText == "") {
+
+            latitude.setText("N/A");
+
+            longitude.setText("N/A");
 
 
+        } else {
             latitude.setText(latCoord);
 
 

@@ -1,10 +1,12 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
 
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main"
+    android:layout_marginTop="56dp">
+
 
     <LinearLayout
         android:id="@+id/searchLinLayout"
@@ -12,9 +14,10 @@
         android:layout_height="50dp"
         android:background="@android:color/white"
         android:elevation="6dp"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="19dp">
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/search_magnify"
@@ -37,14 +40,18 @@
             android:maxLines="1"
             android:textSize="15sp" />
 
-        <Button
-            android:id="@+id/userEnter"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:background="@color/colorAccent"
-            android:text="Enter"
-            android:textColor="#ffffff"></Button>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/searchLinLayout"
+        android:orientation="horizontal"
+        android:elevation="6dp"
+        android:layout_marginTop="8dp">
 
         <Button
             android:id="@+id/buttonDate"
@@ -52,13 +59,24 @@
             android:layout_height="match_parent"
             android:background="@color/colorAccent"
             android:text="Date"
-            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
             android:textColor="#ffffff"
-            android:onClick="openCalendar"></Button>
+            android:onClick="openCalendar"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="4dp"></Button>
 
+        <Button
+            android:id="@+id/userEnter"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorAccent"
+            android:text="Enter"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="8dp"></Button>
 
     </LinearLayout>
-
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -70,4 +88,4 @@
         tools:context=".MainActivity" />
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

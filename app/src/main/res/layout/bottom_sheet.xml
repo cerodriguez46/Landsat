@@ -18,8 +18,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="36dp"
         android:layout_marginLeft="36dp"
         android:layout_marginBottom="2dp"
@@ -68,7 +68,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="3dp"
+        android:layout_height="1dp"
         android:layout_marginTop="2dp"
         android:layout_marginRight="36dp"
         android:layout_marginLeft="36dp"
@@ -111,14 +111,15 @@
             android:layout_weight="1"
             android:id="@+id/tv_lat"
             android:textStyle="bold"
-            android:textSize="15dp"></TextView>
+            android:textSize="15dp"
+            android:text="N/A"></TextView>
 
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="3dp"
+        android:layout_height="1dp"
         android:layout_marginTop="2dp"
         android:layout_marginRight="36dp"
         android:layout_marginLeft="36dp"
@@ -161,16 +162,17 @@
             android:layout_weight="1"
             android:textStyle="bold"
             android:textSize="15dp"
-            android:id="@+id/tv_lng"></TextView>
+            android:id="@+id/tv_lng"
+            android:text="N/A"></TextView>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="3dp"
+        android:layout_height="1dp"
         android:layout_marginTop="2dp"
         android:layout_marginRight="36dp"
         android:layout_marginLeft="36dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="20dp"
         android:background="@color/colorAccentGrey"></View>
 
 
