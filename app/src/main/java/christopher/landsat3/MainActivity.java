@@ -347,12 +347,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
-                /*Date d = new Date(year, month, day);
-SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-String date = sdf.format(d);
-System.out.println(date);*/
-
-
                 int monthOfYear = month + 1;
                 String formattedMonth = "" + monthOfYear;
                 String formattedDayOfMonth = "" + day;
@@ -370,7 +364,6 @@ System.out.println(date);*/
 
 
                     date.setText(selectedDate);
-
 
                 }
 

@@ -37,7 +37,7 @@ public class DetailActivity extends AppCompatActivity {
 
         detailLong = intentFromMainActivity.getStringExtra("passedLong");
         detailLat = intentFromMainActivity.getStringExtra("passedLat");
-        detailDate = intentFromMainActivity.getStringExtra("selectedDate");
+        detailDate = intentFromMainActivity.getStringExtra("passedDate");
         detailTitle = intentFromMainActivity.getStringExtra("passedTitle");
 
         ((AppCompatActivity) this).getSupportActionBar().setTitle(detailTitle);
