@@ -40,6 +40,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -330,17 +331,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 
-        //datePickerDialog.getDatePicker().setMinDate();
+        Date min = new Date(2018 - 1938, 1, 01);
 
-        datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
+
+        datePickerDialog.getDatePicker().setMinDate(min.getTime());
+
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
 
         datePickerDialog.show();
 
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
-            String updatedMonth;
-            String updatedYear;
-            String updatedDay;
+
 
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -357,7 +359,7 @@ System.out.println(date);*/
 
                 if (month < 10) {
 
-                    formattedMonth = "0" + month;
+                    formattedMonth = "0" + monthOfYear;
                 }
                 if (day < 10) {
 
