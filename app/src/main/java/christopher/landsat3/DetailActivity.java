@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import christopher.landsat3.Networking.LandsatModel;
@@ -54,10 +56,15 @@ public class DetailActivity extends AppCompatActivity {
         tvLon.setText("Lon: " + detailLong);
         tvLat.setText("Lat: " + detailLat);
 
-       /* urlImage = model.getUrl();
 
-        Glide.with(this)
-                .load(urlImage)
-                .into(image);*/
+        try {
+            urlImage = model.getUrl();
+
+            Glide.with(this)
+                    .load(urlImage)
+                    .into(image);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     int calendarMonth;
     int calendarDay;
 
+    String fetchedJson;
 
 
     private FusedLocationProviderClient mFusedLocationClient;
@@ -154,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     onMapSearch(view);
                     updateBottomSheetContents();
-                    parseJson();
+
                 }
 
 
@@ -177,9 +178,31 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onResponse(Call<LandsatModel> call, Response<LandsatModel> response) {
 
-                model = response.body();
+                String result = response.body().getUrl();
 
-                Log.v(TAG, String.valueOf(response));
+                Log.v("Connection to API", result);
+
+                LandsatModel myObject = new LandsatModel();
+                String aString = myObject.getUrl();
+                String bString = myObject.getId();
+                String cString = myObject.getServiceVersion();
+                String dString = String.valueOf(myObject.getCloudScore());
+                String eString = myObject.getDate();
+                String fString = String.valueOf(myObject.getResource());
+
+
+                Log.v(TAG, String.valueOf(aString));
+                Log.v("102", String.valueOf(bString));
+                Log.v("103", String.valueOf(cString));
+                Log.v("104", String.valueOf(dString));
+                Log.v("105", String.valueOf(eString));
+                Log.v("106", String.valueOf(fString));
+
+
+
+
+
+
 
             }
 
@@ -203,6 +226,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 date.getText().equals("N/A")) {
             Toast.makeText(MainActivity.this, "Please enter a place and date", Toast.LENGTH_SHORT).show();
         } else {
+
+            parseJson();
             Intent intent = new Intent(MainActivity.this, DetailActivity.class);
             intent.putExtra("passedLong", longCoord);
             intent.putExtra("passedLat", latCoord);
@@ -303,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Address address = addressList.get(0);
                 LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
 
-                mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+                mMap.addMarker(new MarkerOptions().position(latLng).title(String.valueOf(titleOfPlace)));
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 latReturn = address.getLatitude();
                 longReturn = address.getLongitude();
@@ -336,7 +361,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 
-        Date min = new Date(2018 - 1938, 1, 01);
+        Date min = new Date(2018 - 1946, 0, 01);
 
 
         datePickerDialog.getDatePicker().setMinDate(min.getTime());
@@ -368,10 +393,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     selectedDate = String.valueOf(year) + "-" + formattedMonth + "-" + formattedDayOfMonth;
 
 
-                    date.setText(selectedDate);
-
                 }
-
+                date.setText(selectedDate);
             }
 
 
@@ -395,18 +418,26 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        String stateEditTextSaved = savedInstanceState.getString("saved_edit_text");
-        String stateTitleSaved = savedInstanceState.getString("saved_title_place");
-        String stateDateSaved = savedInstanceState.getString("saved_date");
-        String stateLongSaved = savedInstanceState.getString("saved_long");
-        String stateLatSaved = savedInstanceState.getString("saved_lat");
 
-        searchUserInput.setText(stateEditTextSaved);
-        titleOfPlace.setText(stateTitleSaved);
-        date.setText(stateDateSaved);
-        longitude.setText(stateLongSaved);
-        latitude.setText(stateLatSaved);
+        if (savedInstanceState != null) {
+            String stateEditTextSaved = savedInstanceState.getString("saved_edit_text");
+            String stateTitleSaved = savedInstanceState.getString("saved_title_place");
+            String stateDateSaved = savedInstanceState.getString("saved_date");
+            String stateLongSaved = savedInstanceState.getString("saved_long");
+            String stateLatSaved = savedInstanceState.getString("saved_lat");
 
+            savedInstanceState.getDouble("lat_from_map");
+            savedInstanceState.getDouble("lon_from_ma");
+            savedInstanceState.getDouble("zoom_from_ma");
+
+
+            searchUserInput.setText(stateEditTextSaved);
+            titleOfPlace.setText(stateTitleSaved);
+            date.setText(stateDateSaved);
+            longitude.setText(stateLongSaved);
+            latitude.setText(stateLatSaved);
+
+        }
     }
 
 
@@ -419,11 +450,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         String saveLongText = longitude.getText().toString();
         String saveLatText = latitude.getText().toString();
 
+
         outState.putString("saved_edit_text", saveEditTextInput);
         outState.putString("saved_title_place", saveTitleText);
         outState.putString("saved_date", saveDateText);
         outState.putString("saved_long", saveLongText);
         outState.putString("saved_lat", saveLatText);
+
+        outState.putDouble("lat_from_map", mMap.getCameraPosition().target.latitude);
+        outState.putDouble("lon_from_map", mMap.getCameraPosition().target.longitude);
+        outState.putDouble("zoom_from_map", mMap.getCameraPosition().zoom);
+
+
 
     }
 

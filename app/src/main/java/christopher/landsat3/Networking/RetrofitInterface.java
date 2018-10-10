@@ -16,5 +16,5 @@ public interface RetrofitInterface {
             @Query("cloud_score") String cloudScore,
             @Query("api_key") String apiKey);
 
-//?lon=100.75&lat=1.5&date=2014-02-01&cloud_score=True
+
 }
