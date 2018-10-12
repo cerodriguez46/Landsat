@@ -113,8 +113,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     int calendarMonth;
     int calendarDay;
 
-    String fetchedJson;
-
 
 
     private FusedLocationProviderClient mFusedLocationClient;

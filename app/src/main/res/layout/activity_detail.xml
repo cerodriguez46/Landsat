@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -20,22 +20,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="16dp"
-                android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp"
-                android:layout_marginTop="8dp">
+
+                >
 
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
 
 
-                    android:elevation="2dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp" />
+                    android:elevation="2dp" />
             </android.support.v7.widget.CardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:background="@color/colorAccentGrey"></View>
 
 
             <RelativeLayout
@@ -48,17 +52,17 @@
                     android:layout_height="wrap_content"
                     android:elevation="16dp"
 
-                    android:layout_marginRight="6dp"
-                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginBottom="2dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginRight="8dp"
                         android:layout_marginLeft="8dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:layout_marginBottom="8dp"
                         android:orientation="vertical">
 
@@ -67,14 +71,14 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/dateLayout"
                             android:orientation="horizontal"
-                            android:layout_marginTop="20dp">
+                            android:layout_marginTop="15dp">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_horizontal"
                                 android:textAlignment="center"
-                                android:textSize="20dp"
+                                android:textSize="26sp"
                                 android:textStyle="bold"
 
                                 android:id="@+id/tv_detail_date" />
@@ -86,14 +90,16 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/latlonglayout"
                             android:orientation="horizontal"
-                            android:layout_marginTop="20dp">
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp">
 
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start"
-                                android:textSize="20dp"
+                                android:textSize="24sp"
                                 android:textAlignment="viewStart"
                                 android:id="@+id/tv_detail_long"
                                 android:textStyle="bold"
@@ -104,8 +110,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="end"
-                                android:textSize="20dp"
-                                android:layout_marginLeft="30dp"
+                                android:textSize="24sp"
+                                android:layout_marginLeft="34dp"
                                 android:textAlignment="viewEnd"
                                 android:textStyle="bold"
                                 android:layout_weight="1" />
@@ -119,38 +125,45 @@
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
                             android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="20dp">
+                            android:layout_marginTop="32dp"
+                            android:layout_marginBottom="32dp">
 
                             <de.hdodenhof.circleimageview.CircleImageView
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
                                 android:src="@drawable/photofilter"
                                 android:layout_gravity="start"
                                 android:layout_marginLeft="8dp"
                                 app:civ_border_width="2dp"
                                 android:layout_weight="1"
-                                app:civ_border_color="@color/colorAccentGrey" />
+                                app:civ_border_color="@color/colorAccentGrey"
+                                android:elevation="2dp"
+                                android:theme="@style/MyButton" />
 
 
                             <de.hdodenhof.circleimageview.CircleImageView
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
                                 android:src="@drawable/save"
                                 android:layout_gravity="start"
                                 android:layout_marginLeft="8dp"
                                 app:civ_border_width="2dp"
                                 android:layout_weight="1"
-                                app:civ_border_color="@color/colorAccentGrey" />
+                                app:civ_border_color="@color/colorAccentGrey"
+                                android:elevation="2dp"
+                                android:theme="@style/MyButton" />
 
                             <de.hdodenhof.circleimageview.CircleImageView
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
                                 android:src="@drawable/share"
                                 android:layout_gravity="start"
                                 android:layout_marginLeft="8dp"
                                 app:civ_border_width="2dp"
                                 android:layout_weight="1"
-                                app:civ_border_color="@color/colorAccentGrey" />
+                                app:civ_border_color="@color/colorAccentGrey"
+                                android:elevation="2dp"
+                                android:theme="@style/MyButton" />
 
                         </LinearLayout>
 
