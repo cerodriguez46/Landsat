@@ -1,8 +1,11 @@
 package christopher.landsat3.Networking;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class LandsatModel {
+public class LandsatModel implements Parcelable {
 
     @SerializedName("cloud_score")
     public double cloudScore;
@@ -77,6 +80,43 @@ public class LandsatModel {
     public void setUrl(String url) {
         this.url = url;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeDouble(this.cloudScore);
+        dest.writeString(this.date);
+        dest.writeString(this.id);
+        dest.writeParcelable(this.resource, flags);
+        dest.writeString(this.serviceVersion);
+        dest.writeString(this.url);
+    }
+
+    protected LandsatModel(Parcel in) {
+        this.cloudScore = in.readDouble();
+        this.date = in.readString();
+        this.id = in.readString();
+        this.resource = in.readParcelable(Resource.class.getClassLoader());
+        this.serviceVersion = in.readString();
+        this.url = in.readString();
+    }
+
+    public static final Parcelable.Creator<LandsatModel> CREATOR = new Parcelable.Creator<LandsatModel>() {
+        @Override
+        public LandsatModel createFromParcel(Parcel source) {
+            return new LandsatModel(source);
+        }
+
+        @Override
+        public LandsatModel[] newArray(int size) {
+            return new LandsatModel[size];
+        }
+    };
 }
 
 

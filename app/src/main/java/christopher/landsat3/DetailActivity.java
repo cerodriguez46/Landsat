@@ -19,6 +19,7 @@ public class DetailActivity extends AppCompatActivity {
     String detailDate;
     String detailTitle;
 
+
     @BindView(R.id.tv_detail_date)
     TextView tvDate;
 
@@ -33,7 +34,6 @@ public class DetailActivity extends AppCompatActivity {
 
     LandsatModel model;
 
-    String urlImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +45,15 @@ public class DetailActivity extends AppCompatActivity {
 
         Intent intentFromMainActivity = getIntent();
 
+        model = intentFromMainActivity.getParcelableExtra("landsatParcel");
+
         detailLong = intentFromMainActivity.getStringExtra("passedLong");
         detailLat = intentFromMainActivity.getStringExtra("passedLat");
         detailDate = intentFromMainActivity.getStringExtra("passedDate");
         detailTitle = intentFromMainActivity.getStringExtra("passedTitle");
+        model = intentFromMainActivity.getParcelableExtra("landsatParcel");
+
+
 
         ((AppCompatActivity) this).getSupportActionBar().setTitle(detailTitle);
 
@@ -58,10 +63,10 @@ public class DetailActivity extends AppCompatActivity {
 
 
         try {
-            urlImage = model.getUrl();
+
 
             Glide.with(this)
-                    .load(urlImage)
+                    .load(model.url)
                     .into(image);
         } catch (NullPointerException e) {
             e.printStackTrace();

@@ -16,7 +16,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -99,13 +98,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     DecimalFormat latlngFormatted = new DecimalFormat("###,###.##");
 
-    LandsatModel model;
+    LandsatModel result;
 
     static final String TAG = "101";
 
     String cloudScore = "true";
 
     String selectedDate;
+
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     int calendarDay;
 
     String fetchedJson;
+
 
 
     private FusedLocationProviderClient mFusedLocationClient;
@@ -165,12 +166,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-    private void parseJson() {
+    public void parseJson() {
 
 
         RetrofitClient client = new RetrofitClient();
 
-        final RetrofitInterface apiService = client.getClient().create(RetrofitInterface.class);
+        RetrofitInterface apiService = client.getClient().create(RetrofitInterface.class);
 
         Call<LandsatModel> call = apiService.geLandsatData(longCoord, latCoord, selectedDate, cloudScore, BuildConfig.NASA_API);
 
@@ -178,30 +179,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onResponse(Call<LandsatModel> call, Response<LandsatModel> response) {
 
-                String result = response.body().getUrl();
-
-                Log.v("Connection to API", result);
-
-                LandsatModel myObject = new LandsatModel();
-                String aString = myObject.getUrl();
-                String bString = myObject.getId();
-                String cString = myObject.getServiceVersion();
-                String dString = String.valueOf(myObject.getCloudScore());
-                String eString = myObject.getDate();
-                String fString = String.valueOf(myObject.getResource());
+                result = response.body();
 
 
-                Log.v(TAG, String.valueOf(aString));
-                Log.v("102", String.valueOf(bString));
-                Log.v("103", String.valueOf(cString));
-                Log.v("104", String.valueOf(dString));
-                Log.v("105", String.valueOf(eString));
-                Log.v("106", String.valueOf(fString));
-
-
-
-
-
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                intent.putExtra("passedLong", longCoord);
+                intent.putExtra("passedLat", latCoord);
+                intent.putExtra("passedDate", selectedDate);
+                intent.putExtra("passedTitle", textFromEditText);
+                intent.putExtra("landsatParcel", result);
+                startActivity(intent);
 
 
             }
@@ -228,12 +215,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         } else {
 
             parseJson();
-            Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-            intent.putExtra("passedLong", longCoord);
-            intent.putExtra("passedLat", latCoord);
-            intent.putExtra("passedDate", selectedDate);
-            intent.putExtra("passedTitle", textFromEditText);
-            startActivity(intent);
+
 
         }
     }
