@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -73,6 +74,16 @@ public class DetailActivity extends AppCompatActivity {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+    }
+
+    public void shareImage(View v) {
+        String combinedImageText = "Date is " + detailDate + "\n\n" + " Latitude is " + detailLat +
+                "\n\n" + " Longitude is " + detailLong + "\n\n" + " Image url is " + "\n\n" + model.url;
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, combinedImageText);
+        sharingIntent.setType("image/*");
+        sharingIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
 
     @Override
