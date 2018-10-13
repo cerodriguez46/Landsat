@@ -10,6 +10,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -326,6 +327,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 latCoord = String.valueOf(latlngFormatted.format(latReturn));
                 longCoord = String.valueOf(latlngFormatted.format(longReturn));
 
+
             } else {
 
                 Toast.makeText(MainActivity.this, "location not found", Toast.LENGTH_SHORT).show();
@@ -384,6 +386,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 }
                 date.setText(selectedDate);
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    }
+                }, 1500);
+
             }
 
 
@@ -415,9 +426,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             String stateLongSaved = savedInstanceState.getString("saved_long");
             String stateLatSaved = savedInstanceState.getString("saved_lat");
 
-            savedInstanceState.getDouble("lat_from_map");
-            savedInstanceState.getDouble("lon_from_ma");
-            savedInstanceState.getDouble("zoom_from_ma");
 
 
             searchUserInput.setText(stateEditTextSaved);
@@ -445,11 +453,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         outState.putString("saved_date", saveDateText);
         outState.putString("saved_long", saveLongText);
         outState.putString("saved_lat", saveLatText);
-
-        outState.putDouble("lat_from_map", mMap.getCameraPosition().target.latitude);
-        outState.putDouble("lon_from_map", mMap.getCameraPosition().target.longitude);
-        outState.putDouble("zoom_from_map", mMap.getCameraPosition().zoom);
-
 
 
     }
