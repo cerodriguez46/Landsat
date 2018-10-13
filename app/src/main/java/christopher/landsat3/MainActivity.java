@@ -153,7 +153,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
                     onMapSearch(view);
+
                     updateBottomSheetContents();
+
+                    sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
                 }
 
