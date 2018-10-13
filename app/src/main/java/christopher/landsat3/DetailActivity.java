@@ -15,8 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.Target;
 
 import java.io.IOException;
 import java.net.URL;
@@ -84,9 +82,9 @@ public class DetailActivity extends AppCompatActivity {
             Glide.with(this)
                     .load(model.url)
 
-                    .apply(new RequestOptions()
-                            .placeholder(R.mipmap.ic_launcher_foreground)
-                            .override(Target.SIZE_ORIGINAL))
+                    //.apply(new RequestOptions()
+                    //.placeholder(R.mipmap.ic_launcher_foreground)
+                    //)
                     .into(image);
         } catch (NullPointerException e) {
             e.printStackTrace();

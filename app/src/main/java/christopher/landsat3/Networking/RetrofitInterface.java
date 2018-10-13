@@ -12,6 +12,7 @@ public interface RetrofitInterface {
     Call<LandsatModel> geLandsatData(
             @Query("lon") String longCoord,
             @Query("lat") String latCoord,
+            @Query("dim") String dim,
             @Query("date") String date,
             @Query("cloud_score") String cloudScore,
             @Query("api_key") String apiKey);

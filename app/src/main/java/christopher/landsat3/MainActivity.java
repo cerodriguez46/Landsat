@@ -19,6 +19,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -77,8 +78,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @BindView(R.id.tv_lng)
     TextView longitude;
 
-    @BindView(R.id.buttonDate)
-    Button selectDateButton;
+
 
     @BindView(R.id.bottom_sheet)
     LinearLayout bottomSheetLayout;
@@ -105,6 +105,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     String cloudScore = "true";
 
     String selectedDate;
+
+    String satImageSize = "0.075";
 
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -151,12 +153,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 } else {
                     titleOfPlace.setText(textFromEditText);
 
+                    searchUserInput.onEditorAction(EditorInfo.IME_ACTION_DONE);
 
                     onMapSearch(view);
 
                     updateBottomSheetContents();
 
+
                     sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+                    openCalendar();
 
                 }
 
@@ -174,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         RetrofitInterface apiService = client.getClient().create(RetrofitInterface.class);
 
-        Call<LandsatModel> call = apiService.geLandsatData(longCoord, latCoord, selectedDate, cloudScore, BuildConfig.NASA_API);
+        Call<LandsatModel> call = apiService.geLandsatData(longCoord, latCoord, satImageSize, selectedDate, cloudScore, BuildConfig.NASA_API);
 
         call.enqueue(new Callback<LandsatModel>() {
             @Override
@@ -269,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mFusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
 
-                    float zoomLevel = 4.0f;
+                    float zoomLevel = 13.0f;
 
                     @Override
                     public void onSuccess(Location location) {
@@ -327,14 +333,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    public void openCalendar(View v) {
+    public void openCalendar() {
+
         final Calendar calendar = Calendar.getInstance();
 
 
         calendarYear = calendar.get(Calendar.YEAR);
         calendarMonth = calendar.get(Calendar.MONTH);
         calendarDay = calendar.get(Calendar.DAY_OF_MONTH);
-
 
         final DatePickerDialog datePickerDialog = new DatePickerDialog(
                 MainActivity.this,

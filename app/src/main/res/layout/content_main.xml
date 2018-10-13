@@ -40,47 +40,19 @@
             android:maxLines="1"
             android:textSize="15sp" />
 
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_below="@+id/searchLinLayout"
-        android:orientation="horizontal"
-        android:elevation="6dp"
-        android:layout_marginTop="4dp">
-
-        <Button
-            android:id="@+id/buttonDate"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:backgroundTint="@color/colorAccent"
-            android:text="Date"
-            android:layout_weight="1"
-            android:textColor="#ffffff"
-            android:onClick="openCalendar"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="4dp"
-            android:elevation="6dp"
-            android:theme="@style/MyButton"></Button>
-
         <Button
             android:id="@+id/userEnter"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:backgroundTint="@color/colorAccent"
             android:text="Enter"
             android:textColor="#ffffff"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="8dp"
             android:elevation="6dp"
             android:theme="@style/MyButton"></Button>
-
     </LinearLayout>
+
+
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
