@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -79,15 +80,15 @@ public class DetailActivity extends AppCompatActivity {
         try {
 
 
+
             Glide.with(this)
                     .load(model.url)
-
-                    //.apply(new RequestOptions()
-                    //.placeholder(R.mipmap.ic_launcher_foreground)
-                    //)
+                    .placeholder(R.drawable.placeholder)
+                    .dontAnimate()
                     .into(image);
         } catch (NullPointerException e) {
             e.printStackTrace();
+            Toast.makeText(this, "No satellite image available", Toast.LENGTH_SHORT).show();
         }
     }
 

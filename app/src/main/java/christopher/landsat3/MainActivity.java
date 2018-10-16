@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     static final String TAG = "101";
 
-    String cloudScore = "true";
+    String cloudScore = "false";
 
     String selectedDate;
 
@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
                 intent.putExtra("passedLong", longCoord);
                 intent.putExtra("passedLat", latCoord);
-                intent.putExtra("passedDate", selectedDate);
+                intent.putExtra("passedDate", formattedDate);
                 intent.putExtra("passedTitle", textFromEditText);
                 intent.putExtra("landsatParcel", result);
                 startActivity(intent);
@@ -382,11 +382,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(year, month, day);
 
-
-                formattedDate = String.valueOf(android.text.format.DateFormat.format("MMMM d, yyyy", new Date()));
+                formattedDate = String.valueOf(android.text.format.DateFormat.format("MMMM d, yyyy", calendar));
                 date.setText(formattedDate);
-                selectedDate = String.valueOf(android.text.format.DateFormat.format("yyyy-MM-dd", new Date()));
+                selectedDate = String.valueOf(android.text.format.DateFormat.format("yyyy-MM-dd", calendar));
 
 
                 final Handler handler = new Handler();
