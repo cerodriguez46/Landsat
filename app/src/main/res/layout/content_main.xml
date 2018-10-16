@@ -38,7 +38,8 @@
             android:hint="Enter a place..."
             android:inputType="textCapWords"
             android:maxLines="1"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:imeOptions="actionDone" />
 
         <Button
             android:id="@+id/userEnter"

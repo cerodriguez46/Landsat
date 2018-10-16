@@ -32,6 +32,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -109,6 +110,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     String satImageSize = "0.075";
 
+    String df_medium_us_st;
+
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
@@ -116,9 +119,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     int calendarMonth;
     int calendarDay;
 
+    private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
 
+    private MapView mapView;
 
     private FusedLocationProviderClient mFusedLocationClient;
+
+    String formattedDate;
 
 
     @Override
@@ -137,9 +144,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        mapFragment.setRetainInstance(true);
         mapFragment.getMapAsync(this);
-
-
 
 
 
@@ -158,12 +164,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     onMapSearch(view);
 
-                    updateBottomSheetContents();
-
 
                     sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
                     openCalendar();
+
+                    updateBottomSheetContents();
 
                 }
 
@@ -186,8 +192,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         call.enqueue(new Callback<LandsatModel>() {
             @Override
             public void onResponse(Call<LandsatModel> call, Response<LandsatModel> response) {
-
                 result = response.body();
+                if (response.code() == 200) {
+                    Toast.makeText(getApplicationContext(), "Connection to data successful", Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 500) {
+                    Toast.makeText(getApplicationContext(), "Data servers are down at this time. Please try again later", Toast.LENGTH_SHORT)
+                            .show();
+                } else if (response.code() == 400) {
+                    Toast.makeText(getApplicationContext(), "Server was unable to process the invalid request", Toast.LENGTH_SHORT)
+                            .show();
+                }
+
 
 
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
@@ -361,31 +376,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         datePickerDialog.show();
 
-        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
 
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
-                int monthOfYear = month + 1;
-                String formattedMonth = "" + monthOfYear;
-                String formattedDayOfMonth = "" + day;
 
-                if (month < 10) {
+                formattedDate = String.valueOf(android.text.format.DateFormat.format("MMMM d, yyyy", new Date()));
+                date.setText(formattedDate);
+                selectedDate = String.valueOf(android.text.format.DateFormat.format("yyyy-MM-dd", new Date()));
 
-                    formattedMonth = "0" + monthOfYear;
-                }
-                if (day < 10) {
-
-                    formattedDayOfMonth = "0" + day;
-
-
-                    selectedDate = String.valueOf(year) + "-" + formattedMonth + "-" + formattedDayOfMonth;
-
-
-                }
-                date.setText(selectedDate);
 
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -399,10 +401,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         };
-    }
 
 
-
+            }
 
 
     public void updateBottomSheetContents() {
@@ -434,6 +435,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             longitude.setText(stateLongSaved);
             latitude.setText(stateLatSaved);
 
+
         }
     }
 
@@ -441,22 +443,42 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        String saveEditTextInput = searchUserInput.getText().toString();
-        String saveTitleText = titleOfPlace.getText().toString();
-        String saveDateText = date.getText().toString();
-        String saveLongText = longitude.getText().toString();
-        String saveLatText = latitude.getText().toString();
 
 
-        outState.putString("saved_edit_text", saveEditTextInput);
-        outState.putString("saved_title_place", saveTitleText);
-        outState.putString("saved_date", saveDateText);
-        outState.putString("saved_long", saveLongText);
-        outState.putString("saved_lat", saveLatText);
+        outState.putString("saved_edit_text", searchUserInput.getText().toString());
+        outState.putString("saved_title_place", titleOfPlace.getText().toString());
+        outState.putString("saved_date", date.getText().toString());
+        outState.putString("saved_long", longitude.getText().toString());
+        outState.putString("saved_lat", latitude.getText().toString());
 
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
     }
 
 
