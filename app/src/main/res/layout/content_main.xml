@@ -39,7 +39,7 @@
             android:inputType="textCapWords"
             android:maxLines="1"
             android:textSize="15sp"
-            android:imeOptions="actionDone" />
+            android:imeOptions="actionGo" />
 
         <Button
             android:id="@+id/userEnter"

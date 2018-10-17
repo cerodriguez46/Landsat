@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,7 +58,7 @@ import retrofit2.Response;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnKeyListener {
 
     private GoogleMap mMap;
 
@@ -79,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @BindView(R.id.tv_lng)
     TextView longitude;
-
 
 
     @BindView(R.id.bottom_sheet)
@@ -137,6 +137,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         ButterKnife.bind(this);
 
+        searchUserInput.setOnKeyListener(this);
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         requestPermission();
 
@@ -146,7 +148,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.setRetainInstance(true);
         mapFragment.getMapAsync(this);
-
 
 
         sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
@@ -177,8 +178,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-
     }
+
 
     public void parseJson() {
 
@@ -202,7 +203,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Toast.makeText(getApplicationContext(), "Server was unable to process the invalid request", Toast.LENGTH_SHORT)
                             .show();
                 }
-
 
 
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
@@ -404,7 +404,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         };
 
 
-            }
+    }
 
 
     public void updateBottomSheetContents() {
@@ -415,7 +415,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         longitude.setText(longCoord);
 
-        }
+    }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -427,7 +427,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             String stateDateSaved = savedInstanceState.getString("saved_date");
             String stateLongSaved = savedInstanceState.getString("saved_long");
             String stateLatSaved = savedInstanceState.getString("saved_lat");
-
 
 
             searchUserInput.setText(stateEditTextSaved);
@@ -455,6 +454,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -480,6 +480,36 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onDestroy() {
         super.onDestroy();
     }
+
+    @Override
+    public boolean onKey(View view, int i, KeyEvent keyEvent) {
+        if (i == KeyEvent.KEYCODE_ENTER) {
+
+            if (TextUtils.isEmpty(textFromEditText = searchUserInput.getText().toString())) {
+                Toast.makeText(MainActivity.this, "Please enter a place", Toast.LENGTH_SHORT).show();
+            } else {
+                titleOfPlace.setText(textFromEditText);
+
+                searchUserInput.onEditorAction(EditorInfo.IME_ACTION_DONE);
+
+                onMapSearch(view);
+
+
+                sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+                openCalendar();
+
+                updateBottomSheetContents();
+
+            }
+
+            return true;
+
+
+        }
+        return false;
+    }
+
     }
 
 
