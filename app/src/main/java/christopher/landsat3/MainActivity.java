@@ -22,7 +22,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -69,9 +68,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @BindView(R.id.searchInput)
     EditText searchUserInput;
 
-    @BindView(R.id.userEnter)
-    Button userInputButton;
-
     @BindView(R.id.tv_lat)
     TextView latitude;
 
@@ -104,13 +100,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     static final String TAG = "101";
 
-    String cloudScore = "false";
+    String cloudScore = "true";
 
     String selectedDate;
 
     String satImageSize = "0.075";
-
-    String df_medium_us_st;
 
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -152,31 +146,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
 
-        userInputButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                if (TextUtils.isEmpty(textFromEditText = searchUserInput.getText().toString())) {
-                    Toast.makeText(MainActivity.this, "Please enter a place", Toast.LENGTH_SHORT).show();
-                } else {
-                    titleOfPlace.setText(textFromEditText);
-
-                    searchUserInput.onEditorAction(EditorInfo.IME_ACTION_DONE);
-
-                    onMapSearch(view);
-
-
-                    sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-
-                    openCalendar();
-
-                    updateBottomSheetContents();
-
-                }
-
-
-            }
-        });
 
     }
 
@@ -366,13 +336,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 calendarYear, calendarDay, calendarMonth);
         datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-
+//min date for satellite imagery from the API may be 2013
         Date min = new Date(2018 - 1946, 0, 01);
+        Date max = new Date(2062 - 1946, 11, 31);
 
 
         datePickerDialog.getDatePicker().setMinDate(min.getTime());
 
-        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        datePickerDialog.getDatePicker().setMaxDate(max.getTime());
 
         datePickerDialog.show();
 
@@ -389,6 +360,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 date.setText(formattedDate);
                 selectedDate = String.valueOf(android.text.format.DateFormat.format("yyyy-MM-dd", calendar));
 
+
+                datePickerDialog.dismiss();
 
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
