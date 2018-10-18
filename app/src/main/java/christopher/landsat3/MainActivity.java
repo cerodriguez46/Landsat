@@ -303,7 +303,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Address address = addressList.get(0);
                 LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
 
-                mMap.addMarker(new MarkerOptions().position(latLng).title(String.valueOf(titleOfPlace)));
+                mMap.addMarker(new MarkerOptions().position(latLng).title(String.valueOf(latLng)));
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 latReturn = address.getLatitude();
                 longReturn = address.getLongitude();
