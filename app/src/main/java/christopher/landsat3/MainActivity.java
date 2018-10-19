@@ -32,7 +32,6 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -113,9 +112,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     int calendarMonth;
     int calendarDay;
 
-    private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
-
-    private MapView mapView;
 
     private FusedLocationProviderClient mFusedLocationClient;
 
@@ -131,7 +127,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         ButterKnife.bind(this);
 
+
         searchUserInput.setOnKeyListener(this);
+
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         requestPermission();
@@ -140,7 +138,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.setRetainInstance(true);
         mapFragment.getMapAsync(this);
 
 
@@ -258,6 +255,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+
         mFusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
 
@@ -401,6 +399,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             String stateLongSaved = savedInstanceState.getString("saved_long");
             String stateLatSaved = savedInstanceState.getString("saved_lat");
 
+            savedInstanceState.getDouble("lat");
+            savedInstanceState.getDouble("lon");
+            savedInstanceState.getFloat("zoom");
+
+
 
             searchUserInput.setText(stateEditTextSaved);
             titleOfPlace.setText(stateTitleSaved);
@@ -424,6 +427,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         outState.putString("saved_long", longitude.getText().toString());
         outState.putString("saved_lat", latitude.getText().toString());
 
+        outState.putDouble("lat", mMap.getCameraPosition().target.latitude);
+        outState.putDouble("lon", mMap.getCameraPosition().target.longitude);
+        outState.putFloat("zoom", mMap.getCameraPosition().zoom);
 
     }
 
