@@ -1,6 +1,7 @@
 package christopher.landsat3.Networking;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -12,30 +13,48 @@ import com.google.gson.annotations.SerializedName;
 public class LandsatModel implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
+    private int Roomid;
     @SerializedName("cloud_score")
     public double cloudScore;
     @SerializedName("date")
     public String date;
     @SerializedName("id")
     public String id;
-    @SerializedName("resource")
-    public Resource resource;
+
     @SerializedName("service_version")
     public String serviceVersion;
     @SerializedName("url")
     public String url;
 
-    public LandsatModel(double cloudScore, String date, String id, Resource resource, String serviceVersion, String url) {
+    @Ignore
+    public LandsatModel(double cloudScore, String date, String id, String serviceVersion, String url) {
         this.cloudScore = cloudScore;
         this.date = date;
         this.id = id;
-        this.resource = resource;
+
+        this.serviceVersion = serviceVersion;
+        this.url = url;
+    }
+
+    //room will use this second constructor with the int id
+    public LandsatModel(int roomid, double cloudScore, String date, String id, String serviceVersion, String url) {
+        Roomid = roomid;
+        this.cloudScore = cloudScore;
+        this.date = date;
+        this.id = id;
         this.serviceVersion = serviceVersion;
         this.url = url;
     }
 
     public LandsatModel() {
+    }
 
+    public int getRoomid() {
+        return Roomid;
+    }
+
+    public void setRoomid(int roomid) {
+        Roomid = roomid;
     }
 
     public double getCloudScore() {
@@ -62,14 +81,6 @@ public class LandsatModel implements Parcelable {
         this.id = id;
     }
 
-    public Resource getResource() {
-        return resource;
-    }
-
-    public void setResource(Resource resource) {
-        this.resource = resource;
-    }
-
     public String getServiceVersion() {
         return serviceVersion;
     }
@@ -94,24 +105,24 @@ public class LandsatModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.Roomid);
         dest.writeDouble(this.cloudScore);
         dest.writeString(this.date);
         dest.writeString(this.id);
-        dest.writeParcelable(this.resource, flags);
         dest.writeString(this.serviceVersion);
         dest.writeString(this.url);
     }
 
     protected LandsatModel(Parcel in) {
+        this.Roomid = in.readInt();
         this.cloudScore = in.readDouble();
         this.date = in.readString();
         this.id = in.readString();
-        this.resource = in.readParcelable(Resource.class.getClassLoader());
         this.serviceVersion = in.readString();
         this.url = in.readString();
     }
 
-    public static final Parcelable.Creator<LandsatModel> CREATOR = new Parcelable.Creator<LandsatModel>() {
+    public static final Creator<LandsatModel> CREATOR = new Creator<LandsatModel>() {
         @Override
         public LandsatModel createFromParcel(Parcel source) {
             return new LandsatModel(source);
