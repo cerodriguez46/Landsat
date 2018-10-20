@@ -1,12 +1,17 @@
 package christopher.landsat3.Networking;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+
+@Entity(tableName = "landsat")
 public class LandsatModel implements Parcelable {
 
+    @PrimaryKey(autoGenerate = true)
     @SerializedName("cloud_score")
     public double cloudScore;
     @SerializedName("date")

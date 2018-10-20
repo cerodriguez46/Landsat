@@ -42,13 +42,16 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
         ViewHolder viewHolder = new ViewHolder(view);
 
 
+
         return viewHolder;
     }
 
 
     @Override
     public void onBindViewHolder(final BookmarkAdapter.ViewHolder holder, int position) {
-        poster = satelliteList.get(position).getUrl();
+
+
+        poster = satelliteList.get(position).url;
 
 
         Glide.with(mContext)
@@ -72,6 +75,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
             super(itemView);
 
             posterthumbnail = (ImageView) itemView.findViewById(R.id.imageView);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

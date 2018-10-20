@@ -153,7 +153,9 @@
                                 android:layout_weight="1"
                                 app:civ_border_color="@color/colorAccentGrey"
                                 android:elevation="2dp"
-                                android:theme="@style/MyButton" />
+                                android:id="@+id/save_button"
+                                android:theme="@style/MyButton"
+                                android:onClick="saveImage" />
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:layout_width="70dp"

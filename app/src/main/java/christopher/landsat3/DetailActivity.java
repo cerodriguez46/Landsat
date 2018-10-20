@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,10 +45,13 @@ public class DetailActivity extends AppCompatActivity {
     @BindView(R.id.imageView)
     ImageView image;
 
+
     LandsatModel model;
 
     Bitmap satImaeBitmap;
     Bitmap bmOut;
+
+    ArrayList<String> satImages = new ArrayList<String>();
 
 
     @Override
@@ -179,6 +183,13 @@ public class DetailActivity extends AppCompatActivity {
         startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
 
+
+    public void saveImage(View v) {
+        Toast.makeText(this, "Saving image...", Toast.LENGTH_SHORT).show();
+
+        LandsatModel model = new LandsatModel();
+        satImages.add(model.url);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -200,7 +211,9 @@ public class DetailActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.imgs_saved) {
             Intent intent = new Intent(DetailActivity.this, Bookmarks.class);
+            intent.putStringArrayListExtra("savedSatelliteImages", satImages);
             startActivity(intent);
+
             return true;
         }
 
