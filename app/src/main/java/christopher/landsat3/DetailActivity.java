@@ -219,7 +219,6 @@ public class DetailActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.imgs_saved) {
             Intent intent = new Intent(DetailActivity.this, Bookmarks.class);
-            intent.putStringArrayListExtra("savedSatelliteImages", satImages);
             startActivity(intent);
 
             return true;

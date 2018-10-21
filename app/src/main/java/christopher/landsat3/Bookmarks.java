@@ -1,6 +1,5 @@
 package christopher.landsat3;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,21 +7,20 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import christopher.landsat3.Networking.LandsatModel;
+import christopher.landsat3.Data.AppDatabase;
 
 public class Bookmarks extends AppCompatActivity {
 
-    private BookmarkAdapter mAdapter;
+    public BookmarkAdapter mAdapter;
 
     private RecyclerView recyclerView;
-    private List<LandsatModel> satelliteList;
+
 
     private int recyclerViewState;
 
     RecyclerView.LayoutManager layoutManager;
+
+    private AppDatabase mDb;
 
 
     @Override
@@ -30,18 +28,13 @@ public class Bookmarks extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmarks);
 
-        Intent intent = getIntent();
 
-        satelliteList = intent.getParcelableArrayListExtra("savedSatelliteImages");
+        mDb = AppDatabase.getInstance(getApplicationContext());
 
-        loadViews();
-    }
 
-    private void loadViews() {
         recyclerView = (RecyclerView) findViewById(R.id.rv_numbers);
 
-        satelliteList = new ArrayList<>();
-        mAdapter = new BookmarkAdapter(getApplicationContext(), satelliteList);
+
 
         if (getApplicationContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             layoutManager = new GridLayoutManager(Bookmarks.this, 3);
@@ -55,7 +48,15 @@ public class Bookmarks extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
 
+        mAdapter.setRecords(mDb.landsatDao().loadAllRecords());
+
         recyclerView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

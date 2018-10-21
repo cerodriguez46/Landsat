@@ -2,7 +2,6 @@ package christopher.landsat3;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +31,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
 
 
     @Override
-    public BookmarkAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BookmarkAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         int layoutIdForListItem = R.layout.list_item;
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -50,8 +49,8 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
     @Override
     public void onBindViewHolder(final BookmarkAdapter.ViewHolder holder, int position) {
 
-
-        poster = satelliteList.get(position).url;
+        LandsatModel recordEntries = satelliteList.get(position);
+        poster = recordEntries.getUrl();
 
 
         Glide.with(mContext)
@@ -63,6 +62,9 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
 
     @Override
     public int getItemCount() {
+        if (satelliteList == null) {
+            return 0;
+        }
         return satelliteList.size();
     }
 
@@ -74,8 +76,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
         public ViewHolder(View itemView) {
             super(itemView);
 
-            posterthumbnail = (ImageView) itemView.findViewById(R.id.imageView);
-
+            posterthumbnail = (ImageView) itemView.findViewById(R.id.rv_image);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -94,4 +95,8 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
         }
     }
 
+    public void setRecords(List<LandsatModel> recordEntries) {
+        satelliteList = recordEntries;
+        notifyDataSetChanged();
+    }
 }
