@@ -191,14 +191,11 @@ public class DetailActivity extends AppCompatActivity {
     public void saveImage(View v) {
         Toast.makeText(this, "Saving image...", Toast.LENGTH_SHORT).show();
 
-        LandsatModel model = new LandsatModel();
-        satImages.add(model.url);
-
-        String info = "yes";
 
         //insert double cloudscore, string date, string id, string service version, string url, string lat, string long
-        // LandsatModel landsatModel = new LandsatModel(detailDate, detailLat, detailLong, detailTitle, info);
-//mDb.landsatDao().insertRecord(landsatModel);
+        LandsatModel landsatModel = new LandsatModel(model.cloudScore, detailDate, model.id, model.serviceVersion, model.url,
+                detailLat, detailLong);
+        mDb.landsatDao().insertRecord(landsatModel);
 
     }
     @Override

@@ -26,27 +26,50 @@ public class LandsatModel implements Parcelable {
     @SerializedName("url")
     public String url;
 
+    String latitude;
+    String longitude;
+
     @Ignore
-    public LandsatModel(double cloudScore, String date, String id, String serviceVersion, String url) {
+    public LandsatModel(double cloudScore, String date, String id, String serviceVersion, String url, String latitude, String longitude) {
         this.cloudScore = cloudScore;
         this.date = date;
         this.id = id;
 
         this.serviceVersion = serviceVersion;
         this.url = url;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     //room will use this second constructor with the int id
-    public LandsatModel(int roomid, double cloudScore, String date, String id, String serviceVersion, String url) {
+    public LandsatModel(int roomid, double cloudScore, String date, String id, String serviceVersion, String url, String latitude, String longitude) {
         Roomid = roomid;
         this.cloudScore = cloudScore;
         this.date = date;
         this.id = id;
         this.serviceVersion = serviceVersion;
         this.url = url;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public LandsatModel() {
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public int getRoomid() {
@@ -111,6 +134,8 @@ public class LandsatModel implements Parcelable {
         dest.writeString(this.id);
         dest.writeString(this.serviceVersion);
         dest.writeString(this.url);
+        dest.writeString(this.latitude);
+        dest.writeString(this.longitude);
     }
 
     protected LandsatModel(Parcel in) {
@@ -120,6 +145,8 @@ public class LandsatModel implements Parcelable {
         this.id = in.readString();
         this.serviceVersion = in.readString();
         this.url = in.readString();
+        this.latitude = in.readString();
+        this.longitude = in.readString();
     }
 
     public static final Creator<LandsatModel> CREATOR = new Creator<LandsatModel>() {
