@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import christopher.landsat3.Data.AppDatabase;
 import christopher.landsat3.Networking.LandsatModel;
 
 public class DetailActivity extends AppCompatActivity {
@@ -53,6 +54,8 @@ public class DetailActivity extends AppCompatActivity {
 
     ArrayList<String> satImages = new ArrayList<String>();
 
+    private AppDatabase mDb;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,7 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        mDb = AppDatabase.getInstance(getApplicationContext());
 
         ButterKnife.bind(this);
 
@@ -189,6 +193,13 @@ public class DetailActivity extends AppCompatActivity {
 
         LandsatModel model = new LandsatModel();
         satImages.add(model.url);
+
+        String info = "yes";
+
+        //insert double cloudscore, string date, string id, string service version, string url, string lat, string long
+        // LandsatModel landsatModel = new LandsatModel(detailDate, detailLat, detailLong, detailTitle, info);
+//mDb.landsatDao().insertRecord(landsatModel);
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -335,7 +335,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 //min date for satellite imagery from the API may be 2013
-        Date min = new Date(2018 - 1946, 0, 01);
+        Date min = new Date(2018 - 1905, 3, 01);
         Date max = new Date(2062 - 1946, 11, 31);
 
 
