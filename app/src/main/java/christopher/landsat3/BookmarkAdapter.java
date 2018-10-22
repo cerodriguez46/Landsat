@@ -50,11 +50,11 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
     public void onBindViewHolder(final BookmarkAdapter.ViewHolder holder, int position) {
 
         LandsatModel recordEntries = satelliteList.get(position);
-        poster = recordEntries.getUrl();
+
 
 
         Glide.with(mContext)
-                .load(poster)
+                .load(recordEntries.getUrl())
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(holder.posterthumbnail);
     }

@@ -31,3 +31,10 @@ public interface LandsatDao {
     @Delete
     void deleteRecord(LandsatModel landsatModel);
 }
+
+/*
+@Query("SELECT * FROM   landsat")
+    LiveData<List<LandsatModel>> loadAllRecords();
+
+
+ */
