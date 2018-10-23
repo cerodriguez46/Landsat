@@ -20,6 +20,8 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
 
     private List<LandsatModel> satelliteList;
 
+    private List<LandsatModel> newList;
+
     String poster;
 
 
@@ -51,10 +53,12 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
 
         LandsatModel recordEntries = satelliteList.get(position);
 
+        String poster = recordEntries.url;
+
 
 
         Glide.with(mContext)
-                .load(recordEntries.getUrl())
+                .load(poster)
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(holder.posterthumbnail);
     }

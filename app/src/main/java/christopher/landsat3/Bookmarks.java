@@ -1,18 +1,24 @@
 package christopher.landsat3;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import java.util.List;
 
 import christopher.landsat3.Data.AppDatabase;
+import christopher.landsat3.Data.MainViewModel;
 import christopher.landsat3.Networking.LandsatModel;
 
 public class Bookmarks extends AppCompatActivity {
+
+    String TAG = "101";
 
     public BookmarkAdapter mAdapter;
 
@@ -34,17 +40,17 @@ public class Bookmarks extends AppCompatActivity {
 
 
         mDb = AppDatabase.getInstance(getApplicationContext());
-
+        loadSatImages();
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_numbers);
 
         mAdapter = new BookmarkAdapter(this, satelliteList);
 
         if (getApplicationContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            layoutManager = new GridLayoutManager(Bookmarks.this, 3);
+            layoutManager = new GridLayoutManager(Bookmarks.this, 2);
             recyclerView.setLayoutManager(layoutManager);
         } else {
-            layoutManager = new GridLayoutManager(Bookmarks.this, 5);
+            layoutManager = new GridLayoutManager(Bookmarks.this, 3);
             recyclerView.setLayoutManager(layoutManager);
         }
 
@@ -52,11 +58,22 @@ public class Bookmarks extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
 
-        mAdapter.setRecords(mDb.landsatDao().loadAllRecords());
-
         recyclerView.setAdapter(mAdapter);
 
 
+    }
+
+    private void loadSatImages() {
+        MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        viewModel.getRecords().observe(this, new Observer<List<LandsatModel>>() {
+            @Override
+            public void onChanged(List<LandsatModel> recordEntries) {
+                Log.d(TAG, "updating lists of tasks from livedata in viewmodel");
+                mAdapter.setRecords(recordEntries);
+
+
+            }
+        });
     }
 
     @Override

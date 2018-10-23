@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import christopher.landsat3.Data.AppDatabase;
+import christopher.landsat3.Data.AppExecutors;
 import christopher.landsat3.Networking.LandsatModel;
 
 public class DetailActivity extends AppCompatActivity {
@@ -193,11 +195,19 @@ public class DetailActivity extends AppCompatActivity {
 
 
         //insert double cloudscore, string date, string id, string service version, string url, string lat, string long
-        LandsatModel landsatModel = new LandsatModel(model.cloudScore, detailDate, model.id, model.serviceVersion, model.url,
+        final LandsatModel landsatModel = new LandsatModel(model.cloudScore, detailDate, model.id, model.serviceVersion, model.url,
                 detailLat, detailLong);
-        mDb.landsatDao().insertRecord(landsatModel);
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
 
+                mDb.landsatDao().insertRecord(landsatModel);
+                Log.v("DatabaseInsert", "Inserting satellite image into the database");
+
+            }
+        });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

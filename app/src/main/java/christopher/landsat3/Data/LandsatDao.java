@@ -1,6 +1,7 @@
 package christopher.landsat3.Data;
 
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -17,7 +18,7 @@ public interface LandsatDao {
 
     //loads list of tasks
     @Query("SELECT * FROM   landsat")
-    List<LandsatModel> loadAllRecords();
+    LiveData<List<LandsatModel>> loadAllRecords();
 
     //inserts new record into the database
     @Insert

@@ -13,10 +13,13 @@ public class MainViewModel extends AndroidViewModel {
 
     private LiveData<List<LandsatModel>> satelliteList;
 
+    private AppDatabase database;
+
     public MainViewModel(@NonNull Application application) {
         super(application);
-        AppDatabase database = AppDatabase.getInstance(this.getApplication());
-        //satelliteList = database.landsatDao().loadAllRecords();
+        //had to make satellite list return LiveData type
+        database = AppDatabase.getInstance(this.getApplication());
+        satelliteList = database.landsatDao().loadAllRecords();
     }
 
     public LiveData<List<LandsatModel>> getRecords() {
