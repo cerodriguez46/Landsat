@@ -48,6 +48,9 @@ public class DetailActivity extends AppCompatActivity {
     @BindView(R.id.imageView)
     ImageView image;
 
+    @BindView(R.id.save_button)
+    ImageView save;
+
 
     LandsatModel model;
 
@@ -57,6 +60,8 @@ public class DetailActivity extends AppCompatActivity {
     ArrayList<String> satImages = new ArrayList<String>();
 
     private AppDatabase mDb;
+
+    boolean isPressed = false;
 
 
     @Override
@@ -81,7 +86,6 @@ public class DetailActivity extends AppCompatActivity {
         model = intentFromMainActivity.getParcelableExtra("landsatParcel");
 
 
-
         ((AppCompatActivity) this).getSupportActionBar().setTitle(detailTitle);
 
         tvDate.setText(detailDate);
@@ -90,7 +94,6 @@ public class DetailActivity extends AppCompatActivity {
 
 
         try {
-
 
 
             Glide.with(this)
@@ -191,7 +194,6 @@ public class DetailActivity extends AppCompatActivity {
 
 
     public void saveImage(View v) {
-        Toast.makeText(this, "Saving image...", Toast.LENGTH_SHORT).show();
 
 
         //insert double cloudscore, string date, string id, string service version, string url, string lat, string long
@@ -200,13 +202,44 @@ public class DetailActivity extends AppCompatActivity {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
+                if (isPressed) {
+                    //Toast.makeText(getApplicationContext(), "Saving image...", Toast.LENGTH_SHORT).show();
+                    save.setImageResource(R.drawable.save);
+                    mDb.landsatDao().insertRecord(landsatModel);
+                    Log.v("DatabaseInsert", "Inserting satellite image into the database");
 
-                mDb.landsatDao().insertRecord(landsatModel);
-                Log.v("DatabaseInsert", "Inserting satellite image into the database");
+                } else {
+                    //Toast.makeText(getApplicationContext(), "Deleting image...", Toast.LENGTH_SHORT).show();
+                    save.setImageResource(R.drawable.share);
 
+
+                    mDb.landsatDao().deleteRecord(landsatModel);
+                    Log.v("DatabaseInsert", "Inserting satellite image into the database");
+
+
+                }
+
+                isPressed = !isPressed;
             }
         });
-    }
+    } /*else  {
+            Toast.makeText(this, "Deleting image...", Toast.LENGTH_SHORT).show();
+            save.setImageResource(R.drawable.share);
+            final LandsatModel landsatModel = new LandsatModel(model.cloudScore, detailDate, model.id, model.serviceVersion, model.url,
+                    detailLat, detailLong);
+            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+
+                    mDb.landsatDao().insertRecord(landsatModel);
+                    Log.v("DatabaseInsert", "Inserting satellite image into the database");
+
+                }
+            });
+            isPressed = !isPressed;
+        }*/
+
+//}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
