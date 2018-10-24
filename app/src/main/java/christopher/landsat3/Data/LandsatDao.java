@@ -21,7 +21,7 @@ public interface LandsatDao {
     LiveData<List<LandsatModel>> loadAllRecords();
 
     //inserts new record into the database
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertRecord(LandsatModel landsatModel);
 
     //update records

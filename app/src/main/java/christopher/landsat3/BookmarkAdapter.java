@@ -57,8 +57,10 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
 
 
 
+
         Glide.with(mContext)
                 .load(poster)
+                //.preload()
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(holder.posterthumbnail);
     }
@@ -97,6 +99,10 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
                 }
             });
         }
+    }
+
+    public List<LandsatModel> getRecords() {
+        return satelliteList;
     }
 
     public void setRecords(List<LandsatModel> recordEntries) {

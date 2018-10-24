@@ -61,7 +61,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private AppDatabase mDb;
 
-    boolean isPressed = false;
+
 
 
     @Override
@@ -192,37 +192,44 @@ public class DetailActivity extends AppCompatActivity {
         startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
 
-
+    boolean isPressed = true;
     public void saveImage(View v) {
 
 
         //insert double cloudscore, string date, string id, string service version, string url, string lat, string long
         final LandsatModel landsatModel = new LandsatModel(model.cloudScore, detailDate, model.id, model.serviceVersion, model.url,
                 detailLat, detailLong);
+
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
                 if (isPressed) {
-                    //Toast.makeText(getApplicationContext(), "Saving image...", Toast.LENGTH_SHORT).show();
+
+                    //Toast.makeText(DetailActivity.this, "Saving image...", Toast.LENGTH_SHORT).show();
                     save.setImageResource(R.drawable.save);
-                    mDb.landsatDao().insertRecord(landsatModel);
-                    Log.v("DatabaseInsert", "Inserting satellite image into the database");
+
+                    // mDb.landsatDao().deleteRecord(landsatModel);
+                    Log.v("DatabaseDelete", "deleting satellite image from database");
 
                 } else {
-                    //Toast.makeText(getApplicationContext(), "Deleting image...", Toast.LENGTH_SHORT).show();
+
+
+                    //Toast.makeText(DetailActivity.this, "Saving image...", Toast.LENGTH_SHORT).show();
                     save.setImageResource(R.drawable.share);
 
 
-                    mDb.landsatDao().deleteRecord(landsatModel);
-                    Log.v("DatabaseInsert", "Inserting satellite image into the database");
+                    mDb.landsatDao().insertRecord(landsatModel);
+                    Log.v("DatabaseInsert", "inserting satellite image into the database");
 
 
                 }
-
-                isPressed = !isPressed;
             }
         });
-    } /*else  {
+        isPressed = !isPressed;
+    }
+
+
+    /*else  {
             Toast.makeText(this, "Deleting image...", Toast.LENGTH_SHORT).show();
             save.setImageResource(R.drawable.share);
             final LandsatModel landsatModel = new LandsatModel(model.cloudScore, detailDate, model.id, model.serviceVersion, model.url,

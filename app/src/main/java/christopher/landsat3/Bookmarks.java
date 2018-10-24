@@ -8,11 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 
 import java.util.List;
 
 import christopher.landsat3.Data.AppDatabase;
+import christopher.landsat3.Data.AppExecutors;
 import christopher.landsat3.Data.MainViewModel;
 import christopher.landsat3.Networking.LandsatModel;
 
@@ -46,6 +48,7 @@ public class Bookmarks extends AppCompatActivity {
 
         mAdapter = new BookmarkAdapter(this, satelliteList);
 
+
         if (getApplicationContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             layoutManager = new GridLayoutManager(Bookmarks.this, 2);
             recyclerView.setLayoutManager(layoutManager);
@@ -59,6 +62,28 @@ public class Bookmarks extends AppCompatActivity {
 
 
         recyclerView.setAdapter(mAdapter);
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            // Called when a user swipes left or right on a ViewHolder
+            @Override
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                // Here is where you'll implement swipe to delete
+                AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        int position = viewHolder.getAdapterPosition();
+                        List<LandsatModel> landsatModels = mAdapter.getRecords();
+                        mDb.landsatDao().deleteRecord(landsatModels.get(position));
+                        Log.v("DatabaseDelete", "deleting satellite image from database");
+                    }
+                });
+            }
+        }).attachToRecyclerView(recyclerView);
 
 
     }
@@ -75,6 +100,7 @@ public class Bookmarks extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     protected void onResume() {
