@@ -3,7 +3,7 @@
     android:layout_height="match_parent">
 
     <StackView
-        android:id="@+id/appwidget_text"
+        android:id="@+id/widget_stack_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#09C"

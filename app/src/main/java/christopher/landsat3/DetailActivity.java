@@ -104,7 +104,6 @@ public class DetailActivity extends AppCompatActivity {
             Glide.with(this)
                     .load(detailImage)
                     .placeholder(R.drawable.placeholder)
-                    .dontAnimate()
                     .into(image);
         } catch (NullPointerException e) {
             e.printStackTrace();

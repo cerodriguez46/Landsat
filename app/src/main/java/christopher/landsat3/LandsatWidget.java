@@ -1,8 +1,11 @@
 package christopher.landsat3;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.widget.RemoteViews;
 
 /**
@@ -27,8 +30,31 @@ public class LandsatWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
-        for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
+        for (int i = 0; i < appWidgetIds.length; ++i) {
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.landsat_widget);
+
+            // set intent for widget service that will create the views
+            Intent serviceIntent = new Intent(context, WidgetService.class);
+            serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
+            serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME))); // embed extras so they don't get ignored
+            remoteViews.setRemoteAdapter(appWidgetIds[i], R.id.widget_stack_view, serviceIntent);
+            remoteViews.setEmptyView(R.id.widget_stack_view, R.id.empty_widget);
+
+            // set intent for item click (opens main activity)
+            Intent viewIntent = new Intent(context, MainActivity.class);
+            //viewIntent.setAction(Bookmarks.ACTION_VIEW);
+            viewIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
+            viewIntent.setData(Uri.parse(viewIntent.toUri(Intent.URI_INTENT_SCHEME)));
+
+            PendingIntent viewPendingIntent = PendingIntent.getActivity(context, 0, viewIntent, 0);
+            remoteViews.setPendingIntentTemplate(R.id.widget_stack_view, viewPendingIntent);
+
+            // update widget
+            appWidgetManager.updateAppWidget(appWidgetIds[i], remoteViews);
+
+            //RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.landsat_widget);
+            // views.setRemoteAdapter(R.id.widget_stack_view);
+            // views.setEmptyView(R.id.);
 
                /*appWidgetTarget = new AppWidgetTarget( context, rv, R.id.custom_view_image, appWidgetIds );
 
