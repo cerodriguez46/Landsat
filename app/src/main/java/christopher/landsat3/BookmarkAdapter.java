@@ -25,6 +25,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
     String poster;
 
 
+
     public BookmarkAdapter(Context mContext, List<LandsatModel> satelliteList) {
 
         this.mContext = mContext;
@@ -54,8 +55,6 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
         LandsatModel recordEntries = satelliteList.get(position);
 
         String poster = recordEntries.url;
-
-
 
 
         Glide.with(mContext)
@@ -91,9 +90,13 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
                     LandsatModel clickedItem = satelliteList.get(clickedPosition);
 
                     Intent intent = new Intent(mContext, DetailActivity.class);
-                    intent.putExtra("detailLat", clickedItem);
-                    intent.putExtra("detailLon", clickedItem);
-                    intent.putExtra("detailImage", poster);
+                    intent.putExtra("passedLat", clickedItem.getLatitude());
+                    intent.putExtra("passedLong", clickedItem.getLongitude());
+                    intent.putExtra("passedDate", clickedItem.getDate());
+                    intent.putExtra("passedImage", clickedItem.getUrl());
+                    intent.putExtra("landsatParcel", clickedItem);
+
+
 
                     mContext.startActivity(intent);
                 }

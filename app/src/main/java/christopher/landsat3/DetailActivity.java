@@ -75,15 +75,16 @@ public class DetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        Intent intentFromMainActivity = getIntent();
+        Intent intent = getIntent();
 
-        model = intentFromMainActivity.getParcelableExtra("landsatParcel");
+        model = intent.getParcelableExtra("landsatParcel");
 
-        detailLong = intentFromMainActivity.getStringExtra("passedLong");
-        detailLat = intentFromMainActivity.getStringExtra("passedLat");
-        detailDate = intentFromMainActivity.getStringExtra("passedDate");
-        detailTitle = intentFromMainActivity.getStringExtra("passedTitle");
-        model = intentFromMainActivity.getParcelableExtra("landsatParcel");
+        detailLong = intent.getStringExtra("passedLong");
+        detailLat = intent.getStringExtra("passedLat");
+        detailDate = intent.getStringExtra("passedDate");
+        detailTitle = intent.getStringExtra("passedTitle");
+
+
 
 
         ((AppCompatActivity) this).getSupportActionBar().setTitle(detailTitle);
@@ -93,11 +94,15 @@ public class DetailActivity extends AppCompatActivity {
         tvLat.setText("Lat: " + detailLat);
 
 
+        String detailImage = model.url;
+
+
+
         try {
 
 
             Glide.with(this)
-                    .load(model.url)
+                    .load(detailImage)
                     .placeholder(R.drawable.placeholder)
                     .dontAnimate()
                     .into(image);
