@@ -20,7 +20,6 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
 
     private List<LandsatModel> satelliteList;
 
-    private List<LandsatModel> newList;
 
     String poster;
 
