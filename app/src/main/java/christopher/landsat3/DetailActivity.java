@@ -225,7 +225,7 @@ public class DetailActivity extends AppCompatActivity {
 
                 } else {
 
-                    save.setImageResource(R.drawable.share);
+                    save.setImageResource(R.drawable.check);
 
 
                     mDb.landsatDao().insertRecord(landsatModel);
