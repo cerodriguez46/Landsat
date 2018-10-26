@@ -31,8 +31,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="18dp"
-        android:layout_marginRight="36dp"
-        android:layout_marginLeft="36dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginBottom="2dp"
         android:background="@color/colorAccentGrey"></View>
 
@@ -40,25 +40,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center_vertical"
-        android:weightSum="3"
         android:padding="4dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="50dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:src="@drawable/dates"
-            android:layout_gravity="start"
-            android:layout_marginLeft="8dp"
             app:civ_border_width="2dp"
+            android:layout_weight="1"
             app:civ_border_color="@color/colorAccentGrey" />
 
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:text="Date"
             android:gravity="center_horizontal"
             android:textColor="#444"
@@ -66,9 +63,10 @@
             android:textStyle="bold" />
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:gravity="center_horizontal"
             android:layout_weight="1"
             android:textStyle="bold"
             android:textSize="15dp"
@@ -81,8 +79,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="2dp"
-        android:layout_marginRight="36dp"
-        android:layout_marginLeft="36dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginBottom="2dp"
         android:background="@color/colorAccentGrey"></View>
 
@@ -90,25 +88,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center_horizontal"
-        android:weightSum="3"
         android:padding="4dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="50dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:src="@drawable/terrain"
-            android:layout_gravity="start"
-            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
             app:civ_border_width="2dp"
             app:civ_border_color="@color/colorAccentGrey" />
 
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:text="Latitude"
             android:gravity="center_horizontal"
             android:textColor="#444"
@@ -116,13 +111,14 @@
             android:textStyle="bold" />
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:id="@+id/tv_lat"
             android:textStyle="bold"
             android:textSize="15dp"
+            android:gravity="center_horizontal"
             android:text="N/A"></TextView>
 
 
@@ -132,8 +128,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="2dp"
-        android:layout_marginRight="36dp"
-        android:layout_marginLeft="36dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginBottom="2dp"
         android:background="@color/colorAccentGrey"></View>
 
@@ -141,25 +137,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center_vertical"
-        android:weightSum="3"
         android:padding="4dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="50dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:src="@drawable/map"
-            android:layout_gravity="start"
-            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
             app:civ_border_width="2dp"
             app:civ_border_color="@color/colorAccentGrey" />
 
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:text="Longitude"
             android:gravity="center_horizontal"
             android:textColor="#444"
@@ -167,13 +160,14 @@
             android:textStyle="bold" />
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:textStyle="bold"
             android:textSize="15dp"
             android:id="@+id/tv_lng"
+            android:gravity="center_horizontal"
             android:text="N/A"></TextView>
     </LinearLayout>
 
@@ -181,8 +175,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="2dp"
-        android:layout_marginRight="36dp"
-        android:layout_marginLeft="36dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginBottom="10dp"
         android:background="@color/colorAccentGrey"></View>
 
