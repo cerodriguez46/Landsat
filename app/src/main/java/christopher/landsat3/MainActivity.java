@@ -162,12 +162,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onResponse(Call<LandsatModel> call, Response<LandsatModel> response) {
                 result = response.body();
                 if (response.code() == 200) {
-                    Toast.makeText(getApplicationContext(), "Connection to data successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.connection_success, Toast.LENGTH_SHORT)
+                            .show();
                 } else if (response.code() == 500) {
-                    Toast.makeText(getApplicationContext(), "Data servers are down at this time. Please try again later", Toast.LENGTH_SHORT)
+                    Toast.makeText(getApplicationContext(), R.string.connection_no_servers, Toast.LENGTH_SHORT)
                             .show();
                 } else if (response.code() == 400) {
-                    Toast.makeText(getApplicationContext(), "Server was unable to process the invalid request", Toast.LENGTH_SHORT)
+                    Toast.makeText(getApplicationContext(), R.string.connection_invalid, Toast.LENGTH_SHORT)
                             .show();
                 }
 
@@ -185,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             @Override
             public void onFailure(Call<LandsatModel> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "It didn't work! :(", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.unable_connect_internet, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -195,13 +196,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @OnClick(R.id.fabSatelliteImage)
     public void obtainSatelliteImage(View v) {
 
-        if (TextUtils.isEmpty(textFromEditText = searchUserInput.getText().toString())) {
-            Toast.makeText(MainActivity.this, "Please enter a place", Toast.LENGTH_SHORT).show();
-        } else if (date.getText().equals("N/A")) {
-            Toast.makeText(MainActivity.this, "Please enter a date", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(textFromEditText = searchUserInput.getText().toString()) || textFromEditText == null) {
+            Toast.makeText(MainActivity.this, R.string.userinput_no_place, Toast.LENGTH_SHORT).show();
+        } else if (date.getText().equals(R.string.not_applicable) || date == null) {
+            Toast.makeText(MainActivity.this, R.string.userinput_no_date, Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(textFromEditText = searchUserInput.getText().toString()) &&
-                date.getText().equals("N/A")) {
-            Toast.makeText(MainActivity.this, "Please enter a place and date", Toast.LENGTH_SHORT).show();
+                date.getText().equals(R.string.not_applicable)) {
+            Toast.makeText(MainActivity.this, R.string.userinput_no_place_date, Toast.LENGTH_SHORT).show();
         } else {
 
             parseJson();
@@ -313,7 +314,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             } else {
 
-                Toast.makeText(MainActivity.this, "location not found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.location_not_found, Toast.LENGTH_SHORT).show();
             }
         }
     }

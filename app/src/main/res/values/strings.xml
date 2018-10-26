@@ -14,5 +14,21 @@
 
 
     <!-- Mainactivity strings -->
+    <string name="connection_success">Connection to data successful</string>
+    <string name="connection_no_servers">Data servers are down at this time. Please try again later</string>
+    <string name="connection_invalid">Server was unable to process the invalid request</string>
+
+    <string name="userinput_no_place">Please enter a place</string>
+    <string name="userinput_no_date">Please enter a date</string>
+    <string name="userinput_no_place_date">Please enter a place and date</string>
+
+    <string name="unable_connect_internet">Unable to connect to the internet</string>
+
+    <string name="location_not_found">Unable to find the selected location</string>
+
+    <string name="not_applicable">N/A</string>
+
+    <string name="current_pos">Current Position</string>
+
 
 </resources>
