@@ -50,10 +50,10 @@ public class Bookmarks extends AppCompatActivity {
 
 
         if (getApplicationContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            layoutManager = new GridLayoutManager(Bookmarks.this, 2);
+            layoutManager = new GridLayoutManager(Bookmarks.this, 1);
             recyclerView.setLayoutManager(layoutManager);
-        } else {
-            layoutManager = new GridLayoutManager(Bookmarks.this, 3);
+        } else if (getApplicationContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            layoutManager = new GridLayoutManager(Bookmarks.this, 2);
             recyclerView.setLayoutManager(layoutManager);
         }
 

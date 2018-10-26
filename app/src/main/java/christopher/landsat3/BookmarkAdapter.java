@@ -9,10 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
 import christopher.landsat3.Networking.LandsatModel;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHolder> {
 
@@ -55,11 +59,15 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
 
         String poster = recordEntries.url;
 
+        RequestOptions options = new RequestOptions()
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .priority(Priority.HIGH);
 
         Glide.with(mContext)
                 .load(poster)
-                //.preload()
-                .placeholder(R.drawable.ic_launcher_foreground)
+                .transition(withCrossFade())
+                .apply(options)
                 .into(holder.posterthumbnail);
     }
 

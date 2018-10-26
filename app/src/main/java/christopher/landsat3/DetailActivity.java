@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,6 +28,8 @@ import butterknife.ButterKnife;
 import christopher.landsat3.Data.AppDatabase;
 import christopher.landsat3.Data.AppExecutors;
 import christopher.landsat3.Networking.LandsatModel;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -100,10 +103,15 @@ public class DetailActivity extends AppCompatActivity {
 
         try {
 
+            RequestOptions options = new RequestOptions()
+                    .dontAnimate()
+                    .placeholder(R.drawable.placeholder);
+
 
             Glide.with(this)
                     .load(detailImage)
-                    .placeholder(R.drawable.placeholder)
+                    .transition(withCrossFade())
+                    .apply(options)
                     .into(image);
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -231,26 +239,6 @@ public class DetailActivity extends AppCompatActivity {
         });
         isPressed = !isPressed;
     }
-
-
-    /*else  {
-            Toast.makeText(this, "Deleting image...", Toast.LENGTH_SHORT).show();
-            save.setImageResource(R.drawable.share);
-            final LandsatModel landsatModel = new LandsatModel(model.cloudScore, detailDate, model.id, model.serviceVersion, model.url,
-                    detailLat, detailLong);
-            AppExecutors.getInstance().diskIO().execute(new Runnable() {
-                @Override
-                public void run() {
-
-                    mDb.landsatDao().insertRecord(landsatModel);
-                    Log.v("DatabaseInsert", "Inserting satellite image into the database");
-
-                }
-            });
-            isPressed = !isPressed;
-        }*/
-
-//}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
