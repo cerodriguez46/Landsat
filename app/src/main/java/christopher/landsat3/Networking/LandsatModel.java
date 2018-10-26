@@ -29,6 +29,8 @@ public class LandsatModel implements Parcelable {
     String latitude;
     String longitude;
 
+    String title;
+
     @Ignore
     public LandsatModel(double cloudScore, String date, String id, String serviceVersion, String url, String latitude, String longitude) {
         this.cloudScore = cloudScore;
@@ -42,8 +44,9 @@ public class LandsatModel implements Parcelable {
     }
 
     //room will use this second constructor with the int id
-    public LandsatModel(int roomid, double cloudScore, String date, String id, String serviceVersion, String url, String latitude, String longitude) {
+    public LandsatModel(int roomid, double cloudScore, String date, String id, String serviceVersion, String url, String latitude, String longitude, String title) {
         Roomid = roomid;
+        this.title = title;
         this.cloudScore = cloudScore;
         this.date = date;
         this.id = id;
@@ -54,6 +57,14 @@ public class LandsatModel implements Parcelable {
     }
 
     public LandsatModel() {
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getLatitude() {
@@ -136,6 +147,7 @@ public class LandsatModel implements Parcelable {
         dest.writeString(this.url);
         dest.writeString(this.latitude);
         dest.writeString(this.longitude);
+        dest.writeString(this.title);
     }
 
     protected LandsatModel(Parcel in) {
@@ -147,6 +159,7 @@ public class LandsatModel implements Parcelable {
         this.url = in.readString();
         this.latitude = in.readString();
         this.longitude = in.readString();
+        this.title = in.readString();
     }
 
     public static final Creator<LandsatModel> CREATOR = new Creator<LandsatModel>() {
