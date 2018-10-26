@@ -207,6 +207,7 @@ public class DetailActivity extends AppCompatActivity {
     boolean isPressed = true;
     public void saveImage(View v) {
 
+        Toast.makeText(DetailActivity.this, R.string.database_save, Toast.LENGTH_SHORT).show();
 
         //insert double cloudscore, string date, string id, string service version, string url, string lat, string long
         final LandsatModel landsatModel = new LandsatModel(model.cloudScore, detailDate, model.id, model.serviceVersion, model.url,
@@ -223,9 +224,7 @@ public class DetailActivity extends AppCompatActivity {
                     Log.v("DatabaseDelete", "deleting satellite image from database");
 
                 } else {
-
-
-                    Toast.makeText(DetailActivity.this, R.string.database_save, Toast.LENGTH_SHORT).show();
+                    
                     save.setImageResource(R.drawable.share);
 
 
