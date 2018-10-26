@@ -115,7 +115,7 @@ public class DetailActivity extends AppCompatActivity {
                     .into(image);
         } catch (NullPointerException e) {
             e.printStackTrace();
-            Toast.makeText(this, "No satellite image available", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.no_sat_image, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -217,7 +217,6 @@ public class DetailActivity extends AppCompatActivity {
             public void run() {
                 if (isPressed) {
 
-                    //Toast.makeText(DetailActivity.this, "Saving image...", Toast.LENGTH_SHORT).show();
                     save.setImageResource(R.drawable.save);
 
                     // mDb.landsatDao().deleteRecord(landsatModel);
@@ -226,7 +225,7 @@ public class DetailActivity extends AppCompatActivity {
                 } else {
 
 
-                    //Toast.makeText(DetailActivity.this, "Saving image...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailActivity.this, R.string.database_save, Toast.LENGTH_SHORT).show();
                     save.setImageResource(R.drawable.share);
 
 

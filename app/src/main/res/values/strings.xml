@@ -30,5 +30,10 @@
 
     <string name="current_pos">Current Position</string>
 
+    <!-- DetailActivity strings -->
+
+    <string name="database_save">Image saved</string>
+    <string name="no_sat_image">Satellite image unavailable</string>
+
 
 </resources>
