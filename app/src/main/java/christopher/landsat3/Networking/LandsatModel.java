@@ -32,11 +32,11 @@ public class LandsatModel implements Parcelable {
     String title;
 
     @Ignore
-    public LandsatModel(double cloudScore, String date, String id, String serviceVersion, String url, String latitude, String longitude) {
+    public LandsatModel(double cloudScore, String date, String id, String serviceVersion, String url, String latitude, String longitude, String title) {
         this.cloudScore = cloudScore;
         this.date = date;
         this.id = id;
-
+        this.title = title;
         this.serviceVersion = serviceVersion;
         this.url = url;
         this.latitude = latitude;

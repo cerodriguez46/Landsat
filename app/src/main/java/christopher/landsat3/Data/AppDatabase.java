@@ -8,7 +8,7 @@ import android.util.Log;
 
 import christopher.landsat3.Networking.LandsatModel;
 
-@Database(entities = {LandsatModel.class}, version = 1, exportSchema = false)
+@Database(entities = {LandsatModel.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String LOG_TAG = Database.class.getSimpleName();
@@ -24,6 +24,7 @@ public abstract class AppDatabase extends RoomDatabase {
             synchronized (LOCK) {
                 sInstance = Room.databaseBuilder(context.getApplicationContext(),
                         AppDatabase.class, AppDatabase.DATABASE_NAME)
+                        .fallbackToDestructiveMigration()
                         .build();
             }
         }

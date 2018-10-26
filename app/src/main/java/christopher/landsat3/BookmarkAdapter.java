@@ -101,6 +101,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
                     intent.putExtra("passedLong", clickedItem.getLongitude());
                     intent.putExtra("passedDate", clickedItem.getDate());
                     intent.putExtra("passedImage", clickedItem.getUrl());
+                    intent.putExtra("passedTitle", clickedItem.getTitle());
                     intent.putExtra("landsatParcel", clickedItem);
 
 

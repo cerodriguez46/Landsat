@@ -211,7 +211,7 @@ public class DetailActivity extends AppCompatActivity {
 
         //insert double cloudscore, string date, string id, string service version, string url, string lat, string long
         final LandsatModel landsatModel = new LandsatModel(model.cloudScore, detailDate, model.id, model.serviceVersion, model.url,
-                detailLat, detailLong);
+                detailLat, detailLong, detailTitle);
 
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
@@ -224,7 +224,7 @@ public class DetailActivity extends AppCompatActivity {
                     Log.v("DatabaseDelete", "deleting satellite image from database");
 
                 } else {
-                    
+
                     save.setImageResource(R.drawable.share);
 
 
