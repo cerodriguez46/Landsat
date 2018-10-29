@@ -117,6 +117,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     String formattedDate;
 
+    List<Address> addressList = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,6 +205,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         } else if (TextUtils.isEmpty(textFromEditText = searchUserInput.getText().toString()) &&
                 TextUtils.isEmpty(date.getText().toString())) {
             Toast.makeText(MainActivity.this, R.string.userinput_no_place_date, Toast.LENGTH_SHORT).show();
+        } else if (addressList == null || addressList.size() == 0) {
+            Toast.makeText(MainActivity.this, "Please choose a valid location", Toast.LENGTH_SHORT).show();
         } else {
 
             parseJson();
@@ -287,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapSearch(View view) {
 
         String location = searchUserInput.getText().toString();
-        List<Address> addressList = null;
+
 
         if (location != null || !location.equals("")) {
             Geocoder geocoder = new Geocoder(this);
