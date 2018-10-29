@@ -62,6 +62,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
         RequestOptions options = new RequestOptions()
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder)
+                .fitCenter()
                 .priority(Priority.HIGH);
 
         Glide.with(mContext)
