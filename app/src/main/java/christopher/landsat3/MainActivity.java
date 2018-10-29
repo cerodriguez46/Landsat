@@ -198,10 +198,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if (TextUtils.isEmpty(textFromEditText = searchUserInput.getText().toString()) || textFromEditText == null) {
             Toast.makeText(MainActivity.this, R.string.userinput_no_place, Toast.LENGTH_SHORT).show();
-        } else if (date.getText().equals(R.string.not_applicable) || date == null) {
+        } else if (TextUtils.isEmpty(date.getText().toString())) {
             Toast.makeText(MainActivity.this, R.string.userinput_no_date, Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(textFromEditText = searchUserInput.getText().toString()) &&
-                date.getText().equals(R.string.not_applicable)) {
+                TextUtils.isEmpty(date.getText().toString())) {
             Toast.makeText(MainActivity.this, R.string.userinput_no_place_date, Toast.LENGTH_SHORT).show();
         } else {
 
