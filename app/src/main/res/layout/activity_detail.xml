@@ -144,7 +144,8 @@
                                 android:elevation="2dp"
                                 android:theme="@style/MyButton"
                                 android:id="@+id/filter"
-                                android:onClick="filterImage" />
+                                android:onClick="filterImage"
+                                android:background="?android:attr/selectableItemBackground" />
 
 
                             <de.hdodenhof.circleimageview.CircleImageView
@@ -159,7 +160,8 @@
                                 android:elevation="2dp"
                                 android:id="@+id/save_button"
                                 android:theme="@style/MyButton"
-                                android:onClick="saveImage" />
+                                android:onClick="saveImage"
+                                android:background="?android:attr/selectableItemBackground" />
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:layout_width="70dp"
@@ -173,7 +175,8 @@
                                 app:civ_border_color="@color/colorAccentGrey"
                                 android:elevation="2dp"
                                 android:theme="@style/MyButton"
-                                android:onClick="shareImage" />
+                                android:onClick="shareImage"
+                                android:background="?android:attr/selectableItemBackground" />
 
                         </LinearLayout>
 

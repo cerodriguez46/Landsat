@@ -34,12 +34,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@null"
             android:hint="Enter a place..."
             android:inputType="textCapWords|textAutoComplete|textAutoCorrect"
             android:maxLines="1"
             android:textSize="15sp"
-            android:imeOptions="actionGo" />
+            android:imeOptions="actionGo"
+            android:background="?android:attr/selectableItemBackground" />
 
     </LinearLayout>
 

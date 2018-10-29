@@ -105,6 +105,7 @@ public class DetailActivity extends AppCompatActivity {
 
             RequestOptions options = new RequestOptions()
                     .dontAnimate()
+                    .fitCenter()
                     .placeholder(R.drawable.placeholder);
 
 
