@@ -2,11 +2,10 @@ package christopher.landsat3;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -18,9 +17,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -57,15 +56,14 @@ public class DetailActivity extends AppCompatActivity {
 
     LandsatModel model;
 
-    Bitmap satImaeBitmap;
-    Bitmap bmOut;
 
     ArrayList<String> satImages = new ArrayList<String>();
 
     private AppDatabase mDb;
 
 
-
+    private Bitmap imageBmp;
+    private Bitmap filterBright;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,79 +119,41 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void filterImage(View v) {
-        try {
-            URL url = new URL("http://....");
-            satImaeBitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-            adjustedContrast(satImaeBitmap, 5.00);
 
-            Glide.with(this)
-                    .load(satImaeBitmap)
-                    .into(image);
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+        String satImage = model.url;
+
+
+        Glide.with(DetailActivity.this)
+                .asBitmap()
+                .load(satImage)
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        imageBmp = resource;
+
+                        filterBright = Bitmap.createBitmap(imageBmp.getWidth(), imageBmp.getHeight(), imageBmp.getConfig());
+
+                        for (int i = 0; i < imageBmp.getWidth(); i++) {
+                            for (int j = 0; j < imageBmp.getHeight(); j++) {
+                                int p = imageBmp.getPixel(i, j);
+                                int r = Color.red(p);
+                                int g = Color.green(p);
+                                int b = Color.blue(p);
+                                int alpha = Color.alpha(p);
+
+                                r = 100 + r;
+                                g = 100 + g;
+                                b = 100 + b;
+                                alpha = 100 + alpha;
+                                filterBright.setPixel(i, j, Color.argb(alpha, r, g, b));
+                            }
+                        }
+                        image.setImageBitmap(filterBright);
+                    }
+                });
+
     }
 
-    private Bitmap adjustedContrast(Bitmap src, double value) {
-        // image size
-        int width = src.getWidth();
-        int height = src.getHeight();
-        // create output bitmap
-
-        // create a mutable empty bitmap
-        Bitmap bmOut = Bitmap.createBitmap(width, height, src.getConfig());
-
-        // create a canvas so that we can draw the bmOut Bitmap from source bitmap
-        Canvas c = new Canvas();
-        c.setBitmap(bmOut);
-
-        // draw bitmap to bmOut from src bitmap so we can modify it
-        c.drawBitmap(src, 0, 0, new Paint(Color.BLACK));
-
-
-        // color information
-        int A, R, G, B;
-        int pixel;
-        // get contrast value
-        double contrast = Math.pow((100 + value) / 100, 2);
-
-        // scan through all pixels
-        for (int x = 0; x < width; ++x) {
-            for (int y = 0; y < height; ++y) {
-                // get pixel color
-                pixel = src.getPixel(x, y);
-                A = Color.alpha(pixel);
-                // apply filter contrast for every channel R, G, B
-                R = Color.red(pixel);
-                R = (int) (((((R / 255.0) - 0.5) * contrast) + 0.5) * 255.0);
-                if (R < 0) {
-                    R = 0;
-                } else if (R > 255) {
-                    R = 255;
-                }
-
-                G = Color.green(pixel);
-                G = (int) (((((G / 255.0) - 0.5) * contrast) + 0.5) * 255.0);
-                if (G < 0) {
-                    G = 0;
-                } else if (G > 255) {
-                    G = 255;
-                }
-
-                B = Color.blue(pixel);
-                B = (int) (((((B / 255.0) - 0.5) * contrast) + 0.5) * 255.0);
-                if (B < 0) {
-                    B = 0;
-                } else if (B > 255) {
-                    B = 255;
-                }
-
-                // set new pixel color to output bitmap
-                bmOut.setPixel(x, y, Color.argb(A, R, G, B));
-            }
-        }
-        return bmOut;
-    }
 
     public void shareImage(View v) {
         String combinedImageText = "Date is " + detailDate + "\n\n" + " Latitude is " + detailLat +
