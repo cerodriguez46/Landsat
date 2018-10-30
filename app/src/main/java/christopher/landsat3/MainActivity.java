@@ -221,13 +221,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // custom dialog
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.custom);
-        dialog.setTitle("Title...");
+        //dialog.setTitle("Landsat Satellite Tutorial");
 
         // set the custom dialog components - text, image and button
         TextView text = (TextView) dialog.findViewById(R.id.text);
-        text.setText("Android custom dialog example!");
         ImageView image = (ImageView) dialog.findViewById(R.id.image);
-        image.setImageResource(R.mipmap.ic_launcher);
+
+
+        dialog.show();
     }
 
 

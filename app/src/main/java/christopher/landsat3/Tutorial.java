@@ -1,37 +1,18 @@
 package christopher.landsat3;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 public class Tutorial extends AppCompatActivity {
 
-    final Context context = this;
-    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
-
-        // custom dialog
-        final Dialog dialog = new Dialog(context);
-        dialog.setContentView(R.layout.custom);
-        dialog.setTitle("Title...");
-
-        // set the custom dialog components - text, image and button
-        TextView text = (TextView) dialog.findViewById(R.id.text);
-        text.setText("Android custom dialog example!");
-        ImageView image = (ImageView) dialog.findViewById(R.id.image);
-        image.setImageResource(R.mipmap.ic_launcher);
-
 
 
     }
