@@ -60,7 +60,7 @@
             android:text="Date"
             android:gravity="center_horizontal"
             android:textColor="#444"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
@@ -70,7 +70,7 @@
             android:gravity="center_horizontal"
             android:layout_weight="1"
             android:textStyle="bold"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:id="@+id/day"
             android:contentDescription="@string/access_chosen_date"></TextView>
     </LinearLayout>
@@ -109,7 +109,7 @@
             android:text="Latitude"
             android:gravity="center_horizontal"
             android:textColor="#444"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
@@ -119,7 +119,7 @@
             android:layout_weight="1"
             android:id="@+id/tv_lat"
             android:textStyle="bold"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:gravity="center_horizontal"
             android:contentDescription="@string/access_chosen_lat"></TextView>
 
@@ -159,7 +159,7 @@
             android:text="Longitude"
             android:gravity="center_horizontal"
             android:textColor="#444"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
@@ -168,7 +168,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:textStyle="bold"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:id="@+id/tv_lng"
             android:gravity="center_horizontal"
             android:contentDescription="@string/access_chosen_long"></TextView>

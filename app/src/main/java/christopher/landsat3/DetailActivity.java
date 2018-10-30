@@ -96,7 +96,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
         String detailImage = model.url;
-
+        Log.v("imageUrl", detailImage);
 
 
         try {

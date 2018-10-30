@@ -21,12 +21,12 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:layout_marginBottom="10dp"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/colorPrimary"
                 android:text="@string/tutorial_title"
                 android:gravity="center_horizontal"
                 android:textColor="@android:color/white"
                 android:layout_gravity="center_vertical"
-                android:textSize="24dp"></TextView>
+                android:textSize="24sp"></TextView>
 
             <TextView
                 android:id="@+id/text"
@@ -35,7 +35,9 @@
                 android:textColor="#000000"
                 android:text="@string/landsat_desc"
                 android:gravity="center_horizontal"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:padding="8dp"
+                android:textSize="15sp" />
 
     <ImageView
         android:id="@+id/image"
@@ -43,7 +45,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:gravity="center_horizontal"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"
+        android:padding="8dp" />
 
 
             <TextView
@@ -53,7 +56,9 @@
                 android:textColor="#000000"
                 android:text="@string/tutorial_common_uses"
                 android:gravity="center_horizontal"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:padding="8dp"
+                android:textSize="15sp" />
 
             <ImageView
                 android:id="@+id/image2"
@@ -61,7 +66,8 @@
         android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_horizontal"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/ic_launcher"
+                android:padding="8dp" />
 
             <TextView
                 android:id="@+id/text3"
@@ -70,7 +76,9 @@
                 android:textColor="#000000"
                 android:text="@string/tutorial_common_places"
                 android:gravity="center_horizontal"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:padding="8dp"
+                android:textSize="15sp" />
 
             <ImageView
                 android:id="@+id/image3"
@@ -78,7 +86,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_horizontal"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/ic_launcher"
+                android:padding="8dp" />
 
             <TextView
                 android:id="@+id/text4"
@@ -87,7 +96,9 @@
                 android:textColor="#000000"
                 android:text="@string/tutorial_cloud_cover"
                 android:gravity="center_horizontal"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:padding="8dp"
+                android:textSize="15sp" />
 
             <ImageView
                 android:id="@+id/image4"
@@ -95,7 +106,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_horizontal"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/ic_launcher"
+                android:padding="8dp" />
 
         </LinearLayout>
     </ScrollView>

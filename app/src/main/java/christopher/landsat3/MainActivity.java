@@ -18,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -165,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onResponse(Call<LandsatModel> call, Response<LandsatModel> response) {
                 result = response.body();
+                Log.v(TAG, String.valueOf(result));
                 if (response.code() == 200) {
                     Toast.makeText(getApplicationContext(), R.string.connection_success, Toast.LENGTH_SHORT)
                             .show();
