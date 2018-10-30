@@ -30,10 +30,29 @@
 
     <string name="current_pos">Current Position</string>
 
+    <string name="access_fab">Download satellite image button</string>
+    <string name="access_map">Map of selected position</string>
+    <string name="access_place_title">Title of selected place</string>
+    <string name="access_pic_date">Picture for date row</string>
+    <string name="access_chosen_date">Selected date</string>
+    <string name="access_pic_lat">Image of latitude row</string>
+    <string name="access_chosen_lat">Selected latitude</string>
+    <string name="access_pic_long">Image of longitude row</string>
+    <string name="access_chosen_long">Selected longitude</string>
+
     <!-- DetailActivity strings -->
 
     <string name="database_save">Image saved</string>
     <string name="no_sat_image">Satellite image unavailable</string>
 
+    <string name="access_sat_img">Satellite image</string>
+    <string name="access_img_date">Date of image</string>
+    <string name="access_img_long">Longitude of image</string>
+    <string name="access_img_lat">Latitude of image</string>
+    <string name="access_button_filter">Apply filter</string>
+    <string name="access_button_save">Save image</string>
+    <string name="access_button_share">Share image</string>
+
+    <string name="list_sat_images">Saved satellite image</string>
 
 </resources>

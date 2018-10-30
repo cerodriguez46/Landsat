@@ -24,7 +24,8 @@
         android:textColor="#444"
         android:textSize="26sp"
         android:textStyle="bold"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/access_place_title" />
 
     <View
         android:layout_width="match_parent"
@@ -47,7 +48,8 @@
             android:src="@drawable/dates"
             app:civ_border_width="2dp"
             android:layout_weight="1"
-            app:civ_border_color="@color/colorAccentGrey" />
+            app:civ_border_color="@color/colorAccentGrey"
+            android:contentDescription="@string/access_pic_date" />
 
 
         <TextView
@@ -69,7 +71,8 @@
             android:layout_weight="1"
             android:textStyle="bold"
             android:textSize="15dp"
-            android:id="@+id/day"></TextView>
+            android:id="@+id/day"
+            android:contentDescription="@string/access_chosen_date"></TextView>
     </LinearLayout>
 
 
@@ -94,7 +97,8 @@
             android:src="@drawable/terrain"
             android:layout_weight="1"
             app:civ_border_width="2dp"
-            app:civ_border_color="@color/colorAccentGrey" />
+            app:civ_border_color="@color/colorAccentGrey"
+            android:contentDescription="@string/access_pic_lat" />
 
 
         <TextView
@@ -116,7 +120,8 @@
             android:id="@+id/tv_lat"
             android:textStyle="bold"
             android:textSize="15dp"
-            android:gravity="center_horizontal"></TextView>
+            android:gravity="center_horizontal"
+            android:contentDescription="@string/access_chosen_lat"></TextView>
 
 
     </LinearLayout>
@@ -142,7 +147,8 @@
             android:src="@drawable/map"
             android:layout_weight="1"
             app:civ_border_width="2dp"
-            app:civ_border_color="@color/colorAccentGrey" />
+            app:civ_border_color="@color/colorAccentGrey"
+            android:contentDescription="@string/access_pic_long" />
 
 
         <TextView
@@ -164,7 +170,8 @@
             android:textStyle="bold"
             android:textSize="15dp"
             android:id="@+id/tv_lng"
-            android:gravity="center_horizontal"></TextView>
+            android:gravity="center_horizontal"
+            android:contentDescription="@string/access_chosen_long"></TextView>
     </LinearLayout>
 
     <View

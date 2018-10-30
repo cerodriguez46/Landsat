@@ -43,7 +43,8 @@
         android:elevation="8dp"
         app:layout_anchorGravity="top|end"
         app:rippleColor="@color/colorAccentGrey"
-        app:fabSize="normal">
+        app:fabSize="normal"
+        android:contentDescription="@string/access_fab">
 
     </android.support.design.widget.FloatingActionButton>
 
