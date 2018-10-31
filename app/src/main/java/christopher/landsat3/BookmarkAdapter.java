@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
 
@@ -60,9 +61,9 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
         String poster = recordEntries.url;
 
         RequestOptions options = new RequestOptions()
+                .override(Target.SIZE_ORIGINAL)
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder)
-                .fitCenter()
                 .priority(Priority.HIGH);
 
         Glide.with(mContext)

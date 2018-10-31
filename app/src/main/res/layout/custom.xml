@@ -46,7 +46,8 @@
         android:layout_gravity="center_vertical"
         android:gravity="center_horizontal"
         android:src="@drawable/landsatimage"
-        android:padding="8dp" />
+        android:padding="8dp"
+        android:elevation="16dp" />
 
 
             <TextView
@@ -67,7 +68,8 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center_horizontal"
                 android:src="@drawable/pyramids"
-                android:padding="8dp" />
+                android:padding="8dp"
+                android:elevation="16dp" />
 
             <TextView
                 android:id="@+id/text3"
@@ -87,7 +89,8 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center_horizontal"
                 android:src="@drawable/sainthelens"
-                android:padding="8dp" />
+                android:padding="8dp"
+                android:elevation="16dp" />
 
             <TextView
                 android:id="@+id/text4"
@@ -107,7 +110,8 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center_horizontal"
                 android:src="@drawable/cloudcover"
-                android:padding="8dp" />
+                android:padding="8dp"
+                android:elevation="16dp" />
 
             <ImageView
                 android:id="@+id/image5"
@@ -116,7 +120,8 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center_horizontal"
                 android:src="@drawable/glacier"
-                android:padding="8dp" />
+                android:padding="8dp"
+                android:elevation="16dp" />
 
             <ImageView
                 android:id="@+id/image6"
@@ -125,7 +130,8 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center_horizontal"
                 android:src="@drawable/partialimage"
-                android:padding="8dp" />
+                android:padding="8dp"
+                android:elevation="16dp" />
 
         </LinearLayout>
     </ScrollView>

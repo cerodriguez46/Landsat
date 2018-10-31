@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 
 import java.util.ArrayList;
@@ -103,8 +104,7 @@ public class DetailActivity extends AppCompatActivity {
         try {
 
             RequestOptions options = new RequestOptions()
-                    .dontAnimate()
-                    .fitCenter()
+                    .override(Target.SIZE_ORIGINAL)
                     .placeholder(R.drawable.placeholder);
 
 
