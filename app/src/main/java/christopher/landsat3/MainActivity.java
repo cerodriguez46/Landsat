@@ -450,9 +450,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         outState.putString("saved_long", longitude.getText().toString());
         outState.putString("saved_lat", latitude.getText().toString());
 
-        outState.putDouble("lat", mMap.getCameraPosition().target.latitude);
-        outState.putDouble("lon", mMap.getCameraPosition().target.longitude);
-        outState.putFloat("zoom", mMap.getCameraPosition().zoom);
+        //outState.putDouble("lat", mMap.getCameraPosition().target.latitude);
+        //outState.putDouble("lon", mMap.getCameraPosition().target.longitude);
+        //outState.putFloat("zoom", mMap.getCameraPosition().zoom);
 
     }
 
