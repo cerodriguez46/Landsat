@@ -24,6 +24,8 @@
 
     <string name="unable_connect_internet">Unable to connect to the internet</string>
 
+    <string name="result_null">Satellite image not available</string>
+
     <string name="location_not_found">Unable to find the selected location</string>
 
     <string name="not_applicable">N/A</string>

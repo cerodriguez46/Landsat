@@ -168,6 +168,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 result = response.body();
                 Log.v(TAG, String.valueOf(result));
                 if (response.code() == 200) {
+                    Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                    intent.putExtra("passedLong", longCoord);
+                    intent.putExtra("passedLat", latCoord);
+                    intent.putExtra("passedDate", formattedDate);
+                    intent.putExtra("passedTitle", textFromEditText);
+                    intent.putExtra("landsatParcel", result);
+                    startActivity(intent);
                     Toast.makeText(getApplicationContext(), R.string.connection_success, Toast.LENGTH_SHORT)
                             .show();
                 } else if (response.code() == 500) {
@@ -176,16 +183,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 } else if (response.code() == 400) {
                     Toast.makeText(getApplicationContext(), R.string.connection_invalid, Toast.LENGTH_SHORT)
                             .show();
+                } else if (result == null) {
+                    Toast.makeText(getApplicationContext(), R.string.result_null, Toast.LENGTH_SHORT)
+                            .show();
                 }
-
-
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                intent.putExtra("passedLong", longCoord);
-                intent.putExtra("passedLat", latCoord);
-                intent.putExtra("passedDate", formattedDate);
-                intent.putExtra("passedTitle", textFromEditText);
-                intent.putExtra("landsatParcel", result);
-                startActivity(intent);
 
 
             }

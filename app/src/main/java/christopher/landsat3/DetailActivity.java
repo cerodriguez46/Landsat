@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -93,8 +94,8 @@ public class DetailActivity extends AppCompatActivity {
         ((AppCompatActivity) this).getSupportActionBar().setTitle(detailTitle);
 
         tvDate.setText(detailDate);
-        tvLon.setText("Lon: " + detailLong);
-        tvLat.setText("Lat: " + detailLat);
+        tvLon.setText("Longitude" + "\n\n" + detailLong);
+        tvLat.setText("Latitude" + "\n\n" + detailLat);
 
 
         String detailImage = model.url;
@@ -120,7 +121,6 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void filterImage(View v) {
-
         String satImage = model.url;
 
 
@@ -145,7 +145,7 @@ public class DetailActivity extends AppCompatActivity {
                                 r = 100 + r;
                                 g = 100 + g;
                                 b = 100 + b;
-                                alpha = 100 + alpha;
+                                alpha = 0;
                                 filterBright.setPixel(i, j, Color.argb(alpha, r, g, b));
                             }
                         }
@@ -213,6 +213,18 @@ public class DetailActivity extends AppCompatActivity {
 
         dialog.show();
     }
+
+    class Task2 extends AsyncTask<String, Void, Void>
+
+    {
+        @Override
+        protected Void doInBackground(String... strings) {
+
+
+            return null;
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
