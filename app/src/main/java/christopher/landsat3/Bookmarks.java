@@ -1,8 +1,8 @@
 package christopher.landsat3;
 
+import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +13,8 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -106,6 +108,20 @@ public class Bookmarks extends AppCompatActivity {
         });
     }
 
+    public void openMenuDialog() {
+        // custom dialog
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.custom);
+        //dialog.setTitle("Landsat Satellite Tutorial");
+
+        // set the custom dialog components - text, image and button
+        TextView text = (TextView) dialog.findViewById(R.id.text);
+        ImageView image = (ImageView) dialog.findViewById(R.id.image);
+
+
+        dialog.show();
+    }
+
 
     @Override
     protected void onResume() {
@@ -129,9 +145,7 @@ public class Bookmarks extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.tutorial_menu) {
-            Intent intent = new Intent(Bookmarks.this, Tutorial.class);
-            startActivity(intent);
-            return true;
+            openMenuDialog();
         }
 
         return super.onOptionsItemSelected(item);

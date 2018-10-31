@@ -1,5 +1,6 @@
 package christopher.landsat3;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -199,6 +200,20 @@ public class DetailActivity extends AppCompatActivity {
         isPressed = !isPressed;
     }
 
+    public void openMenuDialog() {
+        // custom dialog
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.custom);
+        //dialog.setTitle("Landsat Satellite Tutorial");
+
+        // set the custom dialog components - text, image and button
+        TextView text = (TextView) dialog.findViewById(R.id.text);
+        ImageView image = (ImageView) dialog.findViewById(R.id.image);
+
+
+        dialog.show();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -215,8 +230,7 @@ public class DetailActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.tutorial_menu) {
-            Intent intent = new Intent(DetailActivity.this, Tutorial.class);
-            startActivity(intent);
+            openMenuDialog();
             return true;
         } else if (id == R.id.imgs_saved) {
             Intent intent = new Intent(DetailActivity.this, Bookmarks.class);

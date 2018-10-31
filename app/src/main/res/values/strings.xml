@@ -62,8 +62,9 @@
     satellite orbits the earth every 15 days. </string>
 
 
-    <string name="tutorial_cloud_cover">Some images may have lots of cloud cover obstructing the
-    desired location</string>
+    <string name="tutorial_cloud_cover">Some images may have lots of cloud cover or glaciers obstructing the
+    desired location. Certain locations may also be located at the edge of the satellites path when
+    it obtained the image.</string>
 
     <string name="tutorial_common_uses">The landsat satellite can be used for conservation, environmental, scientific
     efforts, or to simply view a location.</string>
