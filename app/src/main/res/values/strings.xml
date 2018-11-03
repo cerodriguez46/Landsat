@@ -73,6 +73,7 @@
 
     <string name="tutorial_common_places">Common places to look up include Mt Fuji, Pyramids of Egypt,
     Mt. Kilamanjaro, St. Petersburg, Mt. St. Helens, among many other places!</string>
+    <string name="filter_message">Applying filter to image...</string>
 
 
 </resources>

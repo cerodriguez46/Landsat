@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -75,7 +76,7 @@ public class DetailActivity extends AppCompatActivity {
     private AppWidgetTarget appWidgetTarget;
 
 
-
+    String satImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +111,7 @@ public class DetailActivity extends AppCompatActivity {
         Log.v("imageUrl", detailImage);
 
 
+
         try {
 
             RequestOptions options = new RequestOptions()
@@ -131,8 +133,8 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void filterImage(View v) {
-        String satImage = model.url;
-
+        satImage = model.url;
+        Toast.makeText(this, R.string.filter_message, Toast.LENGTH_LONG).show();
 
         Glide.with(DetailActivity.this)
                 .asBitmap()
@@ -141,27 +143,41 @@ public class DetailActivity extends AppCompatActivity {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                         imageBmp = resource;
+                        new Task2().execute();
 
-                        filterBright = Bitmap.createBitmap(imageBmp.getWidth(), imageBmp.getHeight(), imageBmp.getConfig());
-
-                        for (int i = 0; i < imageBmp.getWidth(); i++) {
-                            for (int j = 0; j < imageBmp.getHeight(); j++) {
-                                int p = imageBmp.getPixel(i, j);
-                                int r = Color.red(p);
-                                int g = Color.green(p);
-                                int b = Color.blue(p);
-                                int alpha = Color.alpha(p);
-
-                                r = 100 + r;
-                                g = 100 + g;
-                                b = 100 + b;
-                                alpha = 0;
-                                filterBright.setPixel(i, j, Color.argb(alpha, r, g, b));
-                            }
-                        }
-                        image.setImageBitmap(filterBright);
                     }
                 });
+
+    }
+
+    class Task2 extends AsyncTask<String, Void, Void>
+
+    {
+        @Override
+        protected Void doInBackground(String... strings) {
+
+            filterBright = Bitmap.createBitmap(imageBmp.getWidth(), imageBmp.getHeight(), imageBmp.getConfig());
+
+            for (int i = 0; i < imageBmp.getWidth(); i++) {
+                for (int j = 0; j < imageBmp.getHeight(); j++) {
+                    int p = imageBmp.getPixel(i, j);
+                    int r = Color.red(p);
+                    int g = Color.green(p);
+                    int b = Color.blue(p);
+                    int alpha = Color.alpha(p);
+
+                    r = 100 + r;
+                    g = 100 + g;
+                    b = 100 + b;
+                    alpha = 150;
+                    filterBright.setPixel(i, j, Color.argb(alpha, r, g, b));
+                }
+            }
+            image.setImageBitmap(filterBright);
+
+
+            return null;
+        }
 
     }
 
