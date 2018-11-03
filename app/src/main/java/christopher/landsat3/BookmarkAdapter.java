@@ -28,6 +28,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
 
     String poster;
 
+    LandsatModel model;
 
 
     public BookmarkAdapter(Context mContext, List<LandsatModel> satelliteList) {
@@ -122,4 +123,6 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
         satelliteList = recordEntries;
         notifyDataSetChanged();
     }
+
+
 }

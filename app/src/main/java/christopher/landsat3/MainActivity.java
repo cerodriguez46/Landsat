@@ -175,6 +175,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     intent.putExtra("passedTitle", textFromEditText);
                     intent.putExtra("landsatParcel", result);
                     startActivity(intent);
+
                     Toast.makeText(getApplicationContext(), R.string.connection_success, Toast.LENGTH_SHORT)
                             .show();
                 } else if (response.code() == 500) {

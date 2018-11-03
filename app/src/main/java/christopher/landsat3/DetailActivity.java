@@ -1,10 +1,12 @@
 package christopher.landsat3;
 
 import android.app.Dialog;
+import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,11 +16,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.AppWidgetTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
@@ -67,6 +71,10 @@ public class DetailActivity extends AppCompatActivity {
 
     private Bitmap imageBmp;
     private Bitmap filterBright;
+
+    private AppWidgetTarget appWidgetTarget;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +126,8 @@ public class DetailActivity extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(this, R.string.no_sat_image, Toast.LENGTH_SHORT).show();
         }
+        updateWidget();
+
     }
 
     public void filterImage(View v) {
@@ -171,6 +181,7 @@ public class DetailActivity extends AppCompatActivity {
 
         Toast.makeText(DetailActivity.this, R.string.database_save, Toast.LENGTH_SHORT).show();
 
+
         //insert double cloudscore, string date, string id, string service version, string url, string lat, string long
         final LandsatModel landsatModel = new LandsatModel(model.cloudScore, detailDate, model.id, model.serviceVersion, model.url,
                 detailLat, detailLong, detailTitle);
@@ -212,17 +223,46 @@ public class DetailActivity extends AppCompatActivity {
 
 
         dialog.show();
+
+
     }
 
-    class Task2 extends AsyncTask<String, Void, Void>
+    public void updateWidget() {
 
-    {
-        @Override
-        protected Void doInBackground(String... strings) {
+        String widgetImage;
+        widgetImage = model.url;
 
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        Intent intent = new Intent(this, MainActivity.class);
+        //intent.putExtra("passedLat", model.getLatitude());
+        //intent.putExtra("passedLong", model.getLongitude());
+        //intent.putExtra("passedDate", model.getDate());
+        //intent.putExtra("landsatParcel", widgetImage);
+        //intent.putExtra("passedTitle", model.getTitle());
 
-            return null;
-        }
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        RemoteViews remoteViews = new RemoteViews(this.getPackageName(), R.layout.landsat_widget);
+        remoteViews.setOnClickPendingIntent(R.id.widget_image, pendingIntent);
+        ComponentName thisWidget = new ComponentName(this, LandsatWidget.class);
+        appWidgetManager.updateAppWidget(thisWidget, remoteViews);
+
+        appWidgetTarget = new AppWidgetTarget(this, R.id.widget_image, remoteViews, thisWidget) {
+            @Override
+            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                super.onResourceReady(resource, transition);
+            }
+        };
+
+        RequestOptions options = new RequestOptions()
+                .placeholder(R.drawable.placeholder);
+
+        Glide
+                .with(this.getApplicationContext())
+                .asBitmap()
+                .load(widgetImage)
+                .apply(options)
+                .into(appWidgetTarget);
+
     }
 
 
