@@ -183,6 +183,9 @@ public class DetailActivity extends AppCompatActivity {
 
 
     public void shareImage(View v) {
+
+        Toast.makeText(this, R.string.share_message, Toast.LENGTH_SHORT).show();
+
         String combinedImageText = "Date is " + detailDate + "\n\n" + " Latitude is " + detailLat +
                 "\n\n" + " Longitude is " + detailLong + "\n\n" + " Image url is " + "\n\n" + model.url;
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
