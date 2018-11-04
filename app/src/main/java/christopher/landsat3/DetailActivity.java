@@ -143,7 +143,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
         if (isFilterPressed) {
-            Toast.makeText(this, R.string.filter_message, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.filter_message, Toast.LENGTH_SHORT).show();
             filterButton.setImageResource(R.drawable.check);
 
 
@@ -161,7 +161,7 @@ public class DetailActivity extends AppCompatActivity {
                     });
 
         } else {
-            Toast.makeText(this, "Removing filter from image", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Removing filter from image", Toast.LENGTH_SHORT).show();
             filterButton.setImageResource(R.drawable.photofilter);
 
             RequestOptions options = new RequestOptions()
