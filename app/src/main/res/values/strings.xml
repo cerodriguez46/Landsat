@@ -76,6 +76,7 @@
     Mt. Kilamanjaro, St. Petersburg, Mt. St. Helens, among many other places!</string>
     <string name="filter_message">Applying filter to image...</string>
     <string name="share_message">Sharing image and information...</string>
+    <string name="remove_filter_image">Removing filter from image...</string>
 
 
 </resources>

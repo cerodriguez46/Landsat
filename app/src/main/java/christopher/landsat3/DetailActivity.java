@@ -161,7 +161,7 @@ public class DetailActivity extends AppCompatActivity {
                     });
 
         } else {
-            Toast.makeText(this, "Removing filter from image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.remove_filter_image, Toast.LENGTH_SHORT).show();
             filterButton.setImageResource(R.drawable.photofilter);
 
             RequestOptions options = new RequestOptions()
@@ -248,7 +248,7 @@ public class DetailActivity extends AppCompatActivity {
                 //save.setImageResource(R.drawable.save);
 
                 // mDb.landsatDao().deleteRecord(landsatModel);
-                Log.v("DatabaseDelete", "deleting satellite image from database");
+                //Log.v("DatabaseDelete", "deleting satellite image from database");
 
 
                 save.setImageResource(R.drawable.check);
