@@ -220,7 +220,7 @@
                                 app:civ_border_color="@color/colorAccentGrey"
                                 android:elevation="2dp"
                                 android:theme="@style/MyButton"
-                                android:id="@+id/filter"
+                                android:id="@+id/filter_button"
                                 android:onClick="filterImage"
                                 android:background="?android:attr/selectableItemBackground"
                                 android:contentDescription="@string/access_button_filter" />

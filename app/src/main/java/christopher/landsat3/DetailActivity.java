@@ -61,6 +61,9 @@ public class DetailActivity extends AppCompatActivity {
     @BindView(R.id.save_button)
     ImageView save;
 
+    @BindView(R.id.filter_button)
+    ImageView filterButton;
+
 
     LandsatModel model;
 
@@ -132,21 +135,50 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
+    boolean isFilterPressed = true;
     public void filterImage(View v) {
+
+
         satImage = model.url;
-        Toast.makeText(this, R.string.filter_message, Toast.LENGTH_LONG).show();
 
-        Glide.with(DetailActivity.this)
-                .asBitmap()
-                .load(satImage)
-                .into(new SimpleTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        imageBmp = resource;
-                        new Task2().execute();
 
-                    }
-                });
+        if (isFilterPressed) {
+            Toast.makeText(this, R.string.filter_message, Toast.LENGTH_LONG).show();
+            filterButton.setImageResource(R.drawable.check);
+
+
+            Glide.with(DetailActivity.this)
+                    .asBitmap()
+                    .load(satImage)
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            imageBmp = resource;
+                            new Task2().execute();
+
+
+                        }
+                    });
+
+        } else {
+            Toast.makeText(this, "Removing filter from image", Toast.LENGTH_LONG).show();
+            filterButton.setImageResource(R.drawable.photofilter);
+
+            RequestOptions options = new RequestOptions()
+                    .override(Target.SIZE_ORIGINAL)
+                    .placeholder(R.drawable.placeholder);
+
+
+            Glide.with(this)
+                    .load(satImage)
+                    .transition(withCrossFade())
+                    .apply(options)
+                    .into(image);
+
+
+        }
+
+        isFilterPressed = !isFilterPressed;
 
     }
 
@@ -179,7 +211,9 @@ public class DetailActivity extends AppCompatActivity {
             return null;
         }
 
+
     }
+
 
 
     public void shareImage(View v) {
@@ -208,26 +242,23 @@ public class DetailActivity extends AppCompatActivity {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                if (isPressed) {
-
-                    save.setImageResource(R.drawable.save);
-
-                    // mDb.landsatDao().deleteRecord(landsatModel);
-                    Log.v("DatabaseDelete", "deleting satellite image from database");
-
-                } else {
-
-                    save.setImageResource(R.drawable.check);
 
 
-                    mDb.landsatDao().insertRecord(landsatModel);
-                    Log.v("DatabaseInsert", "inserting satellite image into the database");
+                //save.setImageResource(R.drawable.save);
+
+                // mDb.landsatDao().deleteRecord(landsatModel);
+                Log.v("DatabaseDelete", "deleting satellite image from database");
 
 
-                }
+                save.setImageResource(R.drawable.check);
+
+
+                mDb.landsatDao().insertRecord(landsatModel);
+                Log.v("DatabaseInsert", "inserting satellite image into the database");
+
+
             }
         });
-        isPressed = !isPressed;
     }
 
     public void openMenuDialog() {
