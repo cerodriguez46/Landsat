@@ -188,6 +188,7 @@ public class DetailActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(String... strings) {
 
+
             filterBright = Bitmap.createBitmap(imageBmp.getWidth(), imageBmp.getHeight(), imageBmp.getConfig());
 
             for (int i = 0; i < imageBmp.getWidth(); i++) {
@@ -229,7 +230,7 @@ public class DetailActivity extends AppCompatActivity {
         startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
 
-    boolean isPressed = true;
+    // boolean isSavePressed = true;
     public void saveImage(View v) {
 
         Toast.makeText(DetailActivity.this, R.string.database_save, Toast.LENGTH_SHORT).show();
@@ -259,7 +260,9 @@ public class DetailActivity extends AppCompatActivity {
 
             }
         });
+        save.setEnabled(false);
     }
+
 
     public void openMenuDialog() {
         // custom dialog
